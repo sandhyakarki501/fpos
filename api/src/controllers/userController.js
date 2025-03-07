@@ -10,6 +10,26 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const getCustomers = async (req, res) => {
+  try {
+    const data = await userService.getCustomers();
+
+    res.json(data);
+  } catch (error) {
+    res.status(error.statusCode || 500).send(error.message);
+  }
+};
+
+const getEmployees = async (req, res) => {
+  try {
+    const data = await userService.getEmployees();
+
+    res.json(data);
+  } catch (error) {
+    res.status(error.statusCode || 500).send(error.message);
+  }
+};
+
 const getUserById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -79,6 +99,8 @@ export {
   createUser,
   deleteUser,
   getAllUsers,
+  getCustomers,
+  getEmployees,
   getUserById,
   updateProfileImage,
   updateUser,

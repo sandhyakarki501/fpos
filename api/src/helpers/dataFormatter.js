@@ -1,3 +1,13 @@
+export const formatCategoryData = (data) => ({
+  id: data._id,
+  name: data.name,
+});
+
+export const formatMenuItemData = (data) => ({
+  id: data._id,
+  name: data.name,
+});
+
 export const formatUserData = (data) => ({
   id: data._id,
   address: data.address,

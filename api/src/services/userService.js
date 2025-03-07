@@ -2,9 +2,22 @@ import User from "../models/User.js";
 import authService from "./authService.js";
 import { formatUserData } from "../helpers/dataFormatter.js";
 import { uploadFileOnCloudinary } from "../utils/file.js";
+import { ROLE_EMPLOYEE, ROLE_USER } from "../constants/roles.js";
 
 const getAllUsers = async () => {
   const users = await User.find();
+
+  return users.map((user) => formatUserData(user));
+};
+
+const getCustomers = async () => {
+  const users = await User.find({ roles: [ROLE_USER] });
+
+  return users.map((user) => formatUserData(user));
+};
+
+const getEmployees = async () => {
+  const users = await User.find({ roles: ROLE_EMPLOYEE });
 
   return users.map((user) => formatUserData(user));
 };
@@ -63,6 +76,8 @@ export default {
   createUser,
   deleteUser,
   getAllUsers,
+  getCustomers,
+  getEmployees,
   getUserById,
   updateProfileImage,
   updateUser,
