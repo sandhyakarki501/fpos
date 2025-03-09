@@ -1,4 +1,13 @@
 import mongoose from "mongoose";
+import {
+  ORDER_STATUS_PENDING,
+  ORDER_STATUS_PREPARING,
+  ORDER_STATUS_SERVED,
+  ORDER_STATUS_COMPLETED,
+  ORDER_STATUS_CANCELLED,
+  ORDER_STATUS_SHIPPED,
+  ORDER_STATUS_CONFIRMED,
+} from "../constants/orderStatus.js";
 
 const orderSchema = new mongoose.Schema({
   orderNumber: { type: String, unique: true, required: true },
@@ -22,8 +31,16 @@ const orderSchema = new mongoose.Schema({
   totalPrice: { type: Number, required: true },
   status: {
     type: String,
-    enum: ["pending", "preparing", "served", "completed", "cancelled"],
-    default: "pending",
+    enum: [
+      ORDER_STATUS_CANCELLED,
+      ORDER_STATUS_COMPLETED,
+      ORDER_STATUS_CONFIRMED,
+      ORDER_STATUS_PENDING,
+      ORDER_STATUS_PREPARING,
+      ORDER_STATUS_SERVED,
+      ORDER_STATUS_SHIPPED,
+    ],
+    default: ORDER_STATUS_PENDING,
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
