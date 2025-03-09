@@ -5,7 +5,14 @@ export const formatCategoryData = (data) => ({
 
 export const formatMenuItemData = (data) => ({
   id: data._id,
+  category: data.category,
+  createdAt: data.createdAt,
+  createdBy: data.createdBy,
+  description: data.description,
+  imageUrls: data.imageUrls,
+  isActive: data.isActive,
   name: data.name,
+  price: data.price,
 });
 
 export const formatUserData = (data) => ({
