@@ -19,6 +19,7 @@ const registerUser = async (input) => {
     name: input.name,
     address: input.address,
     email: input.email,
+    phone: input.phone,
     password: hashedPassword,
     roles: input.roles,
   });

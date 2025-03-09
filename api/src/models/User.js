@@ -1,21 +1,18 @@
 import mongoose from "mongoose";
+import { ROLE_ADMIN, ROLE_EMPLOYEE, ROLE_USER } from "../constants/roles.js";
 
 const UserSchema = new mongoose.Schema({
-  address: {
-    city: { type: String },
-    country: { type: String },
-    province: { type: String },
-    street: { type: String },
-  },
+  address: String,
   createdAt: { type: Date, default: Date.now() },
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
-  phone: { type: String, unique: true },
+  phone: { type: String },
   password: { type: String, required: true },
   profileImageUrl: String,
   roles: {
     type: [String],
-    default: ["USER"],
+    enum: [ROLE_ADMIN, ROLE_EMPLOYEE, ROLE_USER],
+    default: [ROLE_USER],
   },
 });
 
