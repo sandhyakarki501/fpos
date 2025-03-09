@@ -13,19 +13,19 @@ import auth from "../middlewares/auth.js";
 import roleBasedAuth, {
   allowAdminOrSelf,
 } from "../middlewares/roleBasedAuth.js";
-import { ROLE_ADMIN } from "../constants/roles.js";
+import { ROLE_ADMIN, ROLE_EMPLOYEE } from "../constants/roles.js";
 
 const router = express.Router();
 
 router.get("/", [auth, roleBasedAuth(ROLE_ADMIN)], getAllUsers);
 
-router.get("/customers", [auth], getCustomers);
+router.get("/customers", [auth, roleBasedAuth(ROLE_EMPLOYEE)], getCustomers);
 
 router.get("/employees", [auth, roleBasedAuth(ROLE_ADMIN)], getEmployees);
 
 router.get("/:id", [auth, allowAdminOrSelf], getUserById);
 
-router.post("/", [auth, roleBasedAuth(ROLE_ADMIN)], createUser);
+router.post("/", [auth, roleBasedAuth(ROLE_EMPLOYEE)], createUser);
 
 router.put("/:id", [auth, allowAdminOrSelf], updateUser);
 

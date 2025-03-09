@@ -49,12 +49,13 @@ const getMenuItemById = async (id) => {
 };
 
 const createMenuItem = async (data, files, userId) => {
-  const uploadedFiles = await uploadFileOnCloudinary(files);
+  const uploadedFiles = files && (await uploadFileOnCloudinary(files));
 
-  return await createMenuItem(
-    { ...data, imageUrls: uploadedFiles.map((file) => file.secure_url) },
-    userId
-  );
+  return await MenuItem.create({
+    ...data,
+    imageUrls: uploadedFiles.map((file) => file.secure_url),
+    createdBy: userId,
+  });
 };
 
 const updateMenuItem = async (id, data) => {
