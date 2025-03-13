@@ -3,12 +3,12 @@ import { MENU_ITEMS_ROUTE } from "../../constants/routes";
 
 const MenuItem = ({ id, category, description, imageUrls, name, price }) => {
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
       <Link to={`${MENU_ITEMS_ROUTE}/${id}`}>
-        <img className="rounded-t-lg" src={imageUrls[0]} alt />
+        <img className="rounded-t-lg" src={imageUrls[0]} alt={name} />
       </Link>
       <div className="p-5">
-        <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
+        <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
           {category}
         </span>
 

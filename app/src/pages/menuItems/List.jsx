@@ -11,9 +11,9 @@ const MenuItemsList = () => {
 
   return (
     <section className="py-12 bg-slate-100 min-h-svh">
-      <div className="max-w-screen-xl mx-auto px-4">
+      <div className="max-w-screen-2xl mx-auto px-4">
         <div className="py-8">
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
+          <div className="grid gap-6 justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
             {menuItems.map((menuItem, index) => (
               <MenuItem key={index} {...menuItem} />
             ))}
