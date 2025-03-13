@@ -11,6 +11,7 @@ import connectDB from "./config/database.js";
 import menuItemRoutes from "./routes/menuItemRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import security from "./config/security.js";
 
 dotenv.config();
 connectDB();
@@ -19,6 +20,8 @@ connectCloudinary();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const app = express();
+
+app.use(security);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,7 +33,6 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.json({
     name: "Restaurant POS",
-    port: PORT,
     status: "ok",
     version: "1.0.0",
   });
