@@ -1,4 +1,4 @@
-import MenuItem from "../../components/menuItems/MenuItem";
+import MenuItemCard from "../../components/menuItems/Card";
 import { useEffect, useState } from "react";
 import { getAllMenuItems } from "../../api/menuItem";
 
@@ -15,7 +15,7 @@ const MenuItemsList = () => {
         <div className="py-8">
           <div className="grid gap-6 justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
             {menuItems.map((menuItem, index) => (
-              <MenuItem key={index} {...menuItem} />
+              <MenuItemCard key={index} {...menuItem} />
             ))}
           </div>
         </div>

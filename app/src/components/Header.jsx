@@ -28,7 +28,7 @@ function Header() {
   }
 
   return (
-    <header className="sticky top-0">
+    <header className="sticky top-0 z-50">
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 shadow">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-2xl">
           <Link to={HOME_ROUTE} className="flex items-center">
