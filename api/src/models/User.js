@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now() },
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
-  phone: { type: String },
+  phone: { type: String, required: true },
   password: { type: String, required: true },
   profileImageUrl: String,
   roles: {

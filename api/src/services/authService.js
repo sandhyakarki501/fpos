@@ -13,6 +13,15 @@ const registerUser = async (input) => {
     };
   }
 
+  const phone = await User.findOne({ phone: input.phone });
+
+  if (phone) {
+    throw {
+      statusCode: 400,
+      message: "Phone number already exists.",
+    };
+  }
+
   const hashedPassword = bcrypt.hashSync(input.password);
 
   const createdUser = await User.create({
