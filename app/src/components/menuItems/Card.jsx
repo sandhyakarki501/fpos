@@ -31,7 +31,7 @@ const MenuItemCard = ({
             {name}
           </h5>
         </Link>
-        <div className="relative h-20 w-full overflow-hidden">
+        <div className="relative h-14 w-full overflow-hidden mb-2">
           <p className="absolute top-0 left-0 w-full text-left break-words">
             {description}
           </p>

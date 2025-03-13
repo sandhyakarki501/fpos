@@ -8,7 +8,7 @@ const getAllMenuItems = async (query) => {
   const sort = JSON.parse(query.sort || "{}");
   const filters = {};
 
-  const { name, category, min, max } = query;
+  const { name, category, min, max, isActive } = query;
 
   if (name) filters.name = { $regex: name, $options: "i" }; // Case-insensitive match
   if (category) filters.category = category;
@@ -21,6 +21,8 @@ const getAllMenuItems = async (query) => {
       $lte: parseFloat(max),
     };
   }
+
+  if (isActive != undefined) filters.isActive = isActive;
 
   const menuItems = await MenuItem.find(filters)
     .limit(limit)

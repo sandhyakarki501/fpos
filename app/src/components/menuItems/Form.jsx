@@ -142,39 +142,50 @@ function MenuItemForm({ isEditing = false, menuItem }) {
         <p className="text-red-600 text-sm m-1">{errors.stock?.message}</p>
       </div>
 
-      <div className="py-2">
-        <label htmlFor="images" className="font-semibold text-sm uppercase p-1">
-          Images
-        </label>
+      {!isEditing && (
+        <div className="py-2">
+          <label
+            htmlFor="images"
+            className="font-semibold text-sm uppercase p-1"
+          >
+            Images
+          </label>
 
-        {localImageUrls.length > 0 && (
-          <div className="p-5 bg-gray-100 my-1 rounded grid grid-cols-2 gap-3 items-center justify-evenly">
-            {localImageUrls.map((url, index) => (
-              <img key={index} src={url} alt="image" height={200} width={200} />
-            ))}
-          </div>
-        )}
+          {localImageUrls.length > 0 && (
+            <div className="p-5 bg-gray-100 my-1 rounded grid grid-cols-2 gap-3 items-center justify-evenly">
+              {localImageUrls.map((url, index) => (
+                <img
+                  key={index}
+                  src={url}
+                  alt="image"
+                  height={200}
+                  width={200}
+                />
+              ))}
+            </div>
+          )}
 
-        <input
-          type="file"
-          multiple
-          accept="image/*"
-          className="border border-gray-500 rounded px-3 py-1 w-full shadow-md mt-1"
-          id="images"
-          onChange={(e) => {
-            const files = [];
-            const urls = [];
+          <input
+            type="file"
+            multiple
+            accept="image/*"
+            className="border border-gray-500 rounded px-3 py-1 w-full shadow-md mt-1"
+            id="images"
+            onChange={(e) => {
+              const files = [];
+              const urls = [];
 
-            Array.from(e.target?.files).map((file) => {
-              files.push(file);
-              urls.push(URL.createObjectURL(file));
-            });
+              Array.from(e.target?.files).map((file) => {
+                files.push(file);
+                urls.push(URL.createObjectURL(file));
+              });
 
-            setMenuItemImages(files);
-            setLocalImageUrls(urls);
-          }}
-        />
-      </div>
+              setMenuItemImages(files);
+              setLocalImageUrls(urls);
+            }}
+          />
+        </div>
+      )}
       <div className="flex justify-center pt-5">
         <input
           type="submit"

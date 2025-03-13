@@ -18,8 +18,8 @@ const editMenuItem = async (id, data) => {
   return response;
 };
 
-const getAllMenuItems = async () => {
-  const response = await api.get(`/api/menu-items`);
+const getAllMenuItems = async (query) => {
+  const response = await api.get(`/api/menu-items?${query}`);
 
   return response;
 };
