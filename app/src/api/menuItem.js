@@ -6,6 +6,12 @@ const addMenuItem = async (data) => {
   return response;
 };
 
+const deleteMenuItem = async (id) => {
+  const response = await api.delete(`/api/menu-items/${id}`);
+
+  return response;
+};
+
 const editMenuItem = async (id, data) => {
   const response = await api.put(`/api/menu-items/${id}`, data);
 
@@ -24,4 +30,10 @@ const getMenuItemById = async (id) => {
   return response;
 };
 
-export { getAllMenuItems, addMenuItem, editMenuItem, getMenuItemById };
+export {
+  getAllMenuItems,
+  addMenuItem,
+  editMenuItem,
+  getMenuItemById,
+  deleteMenuItem,
+};

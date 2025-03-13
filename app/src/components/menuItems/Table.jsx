@@ -1,10 +1,44 @@
-import React from "react";
-import { RiDeleteBack2Fill, RiSettings5Line } from "react-icons/ri";
-import { Link } from "react-router-dom";
-import { EDIT_MENU_ITEM_ROUTE } from "../../constants/routes";
-import { MdDelete } from "react-icons/md";
+import { deleteMenuItem, getAllMenuItems } from "../../api/menuItem";
+import { RiSettings5Line } from "react-icons/ri";
+import { toast, ToastContainer } from "react-toastify";
+import { useEffect, useState } from "react";
+import MenuItemTableData from "./TableData";
+import Modal from "../Modal";
 
-const MenuItemsTable = ({ menuItems = [] }) => {
+const MenuItemsTable = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [menuItems, setMenuItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [refreshTable, setRefreshTable] = useState(true);
+
+  async function confirmDelete() {
+    setRefreshTable(false);
+
+    try {
+      await deleteMenuItem(selectedItem?.id);
+
+      toast(`${selectedItem?.name} deleted successfully.`, {
+        type: "success",
+        autoClose: 1500,
+        onClose: () => setSelectedItem(null),
+      });
+    } catch (error) {
+      toast(error.response.data, {
+        type: "error",
+        autoClose: 1500,
+      });
+    } finally {
+      setIsOpen(false);
+      setRefreshTable(true);
+    }
+  }
+
+  useEffect(() => {
+    if (!refreshTable) return;
+
+    getAllMenuItems().then((response) => setMenuItems(response.data));
+  }, [refreshTable]);
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left">
@@ -34,48 +68,53 @@ const MenuItemsTable = ({ menuItems = [] }) => {
         </thead>
         <tbody>
           {menuItems.map((item, index) => (
-            <tr
+            <MenuItemTableData
               key={index}
-              className="bg-white border-b border-gray-200 hover:bg-gray-50 "
-            >
-              <td className="px-6 py-4">{item.id}</td>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-              >
-                {item.name}
-              </th>
-              <td className="px-6 py-4">{item.category}</td>
-              <td className="px-6 py-4">${item.price}</td>
-              <td className="px-6 py-4">
-                {item.isActive ? (
-                  <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
-                    Active
-                  </span>
-                ) : (
-                  <span className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
-                    Inactive
-                  </span>
-                )}
-              </td>
-              <td className="px-6 py-4 text-center">
-                <div className="flex items-center justify-center">
-                  <Link
-                    to={`${EDIT_MENU_ITEM_ROUTE}/${item.id}`}
-                    className="font-medium text-blue-600 hover:underline"
-                  >
-                    Edit
-                  </Link>
-                  <span className="px-1">|</span>
-                  <button className="font-medium text-red-600 hover:underline">
-                    Delete
-                  </button>
-                </div>
-              </td>
-            </tr>
+              {...item}
+              deleteAction={
+                <button
+                  onClick={() => {
+                    setSelectedItem(item);
+                    setIsOpen(true);
+                  }}
+                  className="font-medium text-red-600 hover:underline"
+                >
+                  Delete
+                </button>
+              }
+            />
           ))}
         </tbody>
       </table>
+
+      <Modal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        label={`Delete ${selectedItem?.name}`}
+        body={
+          <p className="text-left">
+            Are you sure you want to delete{" "}
+            <strong>{selectedItem?.name}</strong>?
+          </p>
+        }
+        actions={
+          <div className="flex justify-between w-full">
+            <button
+              className="bg-zinc-600 text-white px-3 py-1 rounded hover:underline"
+              onClick={() => setIsOpen(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="bg-red-500 text-white px-3 py-1 rounded hover:underline"
+              onClick={confirmDelete}
+            >
+              Confirm
+            </button>
+          </div>
+        }
+      />
+      <ToastContainer />
     </div>
   );
 };

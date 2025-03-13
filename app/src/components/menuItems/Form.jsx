@@ -1,5 +1,5 @@
 import { addMenuItem, editMenuItem } from "../../api/menuItem";
-import { MENU_ITEMS_ROUTE } from "../../constants/routes";
+import { LIST_MENU_ITEM_ROUTE } from "../../constants/routes";
 import { toast, ToastContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -41,11 +41,11 @@ function MenuItemForm({ isEditing = false, menuItem }) {
 
       toast.success(
         isEditing
-          ? "MenuItem updated successfully."
-          : "MenuItem added successfully.",
+          ? "Menu item updated successfully."
+          : "Menu item added successfully.",
         {
           autoClose: 500,
-          onClose: () => navigate(MENU_ITEMS_ROUTE),
+          onClose: () => navigate(LIST_MENU_ITEM_ROUTE),
         }
       );
     } catch (error) {
