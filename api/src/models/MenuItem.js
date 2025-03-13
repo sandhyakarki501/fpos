@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const menuItemSchema = new mongoose.Schema({
-  category: { type: String },
+  category: { type: String, required: true },
   description: { type: String },
   imageUrls: { type: [String], required: false },
   isActive: { type: Boolean, default: true },
