@@ -1,6 +1,6 @@
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { MENU_ITEMS_ROUTE } from "../../constants/routes";
+import { LIST_MENU_ITEM_ROUTE } from "../../constants/routes";
 import MenuItemForm from "../../components/menuItems/Form";
 import Title from "../../components/Title";
 
@@ -8,7 +8,10 @@ const AddMenuItem = () => {
   return (
     <section className="py-5 min-h-[90vh]">
       <div className="max-w-screen-2xl mx-auto">
-        <Link to={MENU_ITEMS_ROUTE} className="px-5 py-2 flex items-center">
+        <Link
+          to={LIST_MENU_ITEM_ROUTE}
+          className="px-5 py-2 flex items-center"
+        >
           <BiLeftArrowAlt className="mr-1" />
           Back
         </Link>

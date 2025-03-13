@@ -111,6 +111,23 @@ function MenuItemForm({ isEditing = false, menuItem }) {
 
       <div className="py-2">
         <label
+          htmlFor="isActive"
+          className="font-semibold text-sm uppercase p-1"
+        >
+          Status
+        </label>
+        <select
+          id="isActive"
+          className="border border-gray-500 rounded px-3 py-1 w-full shadow-md mt-1"
+          {...register("isActive")}
+        >
+          <option value={true}>Active</option>
+          <option value={false}>Inactive</option>
+        </select>
+      </div>
+
+      <div className="py-2">
+        <label
           htmlFor="description"
           className="font-semibold text-sm uppercase p-1"
         >

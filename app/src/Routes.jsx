@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import {
   ADD_MENU_ITEM_ROUTE,
   EDIT_MENU_ITEM_ROUTE,
+  LIST_MENU_ITEM_ROUTE,
   LOGIN_ROUTE,
   MENU_ITEMS_ROUTE,
   REGISTER_ROUTE,
@@ -17,9 +18,10 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import UnAuthLayout from "./layouts/UnAuthLayout";
 import AuthLayout from "./layouts/AuthLayout";
-import MenuItemsList from "./pages/menuItems/List";
+import MenuItems from "./pages/menuItems";
 import AddMenuItem from "./pages/menuItems/Add";
 import EditMenuItem from "./pages/menuItems/Edit";
+import MenuItemsList from "./pages/menuItems/List";
 
 const Routes = () => {
   const router = createBrowserRouter(
@@ -28,7 +30,8 @@ const Routes = () => {
         <Route index element={<Home />} />
 
         <Route element={<AuthLayout />}>
-          <Route path={MENU_ITEMS_ROUTE} element={<MenuItemsList />} />
+          <Route path={MENU_ITEMS_ROUTE} element={<MenuItems />} />
+          <Route path={LIST_MENU_ITEM_ROUTE} element={<MenuItemsList />} />
           <Route path={ADD_MENU_ITEM_ROUTE} element={<AddMenuItem />} />
           <Route
             path={`${EDIT_MENU_ITEM_ROUTE}/:id`}
