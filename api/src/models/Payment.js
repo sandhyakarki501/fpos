@@ -8,7 +8,6 @@ const paymentSchema = new mongoose.Schema({
     enum: ["cash", "card", "online"],
     required: true,
   },
-  transactionId: { type: String },
   status: {
     type: String,
     enum: ["pending", "completed", "failed"],

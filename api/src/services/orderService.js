@@ -6,6 +6,8 @@ import {
 } from "../constants/orderStatus.js";
 import { formatOrderData } from "../helpers/dataFormatter.js";
 import Order from "../models/Order.js";
+import requestKhalti from "../utils/khalti.js";
+import paymentService from "./paymentService.js";
 
 const getAll = async (query) => {
   const reqQuery = query?.status ? { status: query.status } : {};
@@ -21,7 +23,7 @@ const getAll = async (query) => {
 const getOrdersByUser = async (query, userId) => {
   const status = query?.status || ORDER_STATUS_PENDING;
 
-  const orders = await Order.find({ status, user: userId })
+  const orders = await Order.find({ status, customer: userId })
     .populate("items.menuItem")
     .exec();
 
@@ -41,7 +43,7 @@ const getOrderById = async (id) => {
 };
 
 const createOrder = async (input, userId) => {
-  const order = await Order.create({ ...input, user: userId });
+  const order = await Order.create({ ...input, createdBy: userId });
 
   return order;
 };
@@ -52,7 +54,7 @@ const updateOrder = async (id, input) => {
   return order;
 };
 
-const confirmOrder = async (id, status) => {
+const confirmOrder = async (id, data) => {
   const order = await Order.findById(id);
 
   if (order.status == ORDER_STATUS_CONFIRMED)
@@ -61,29 +63,35 @@ const confirmOrder = async (id, status) => {
       message: "Order already confirmed.",
     };
 
-  if (!status || status.toLocaleLowerCase() != "completed")
+  if (!data || !data.transactionId)
+    throw {
+      message: "Unable to process payment.",
+    };
+
+  if (data?.status.toLocaleLowerCase() != "completed")
     throw {
       message: "Unable to complete payment.",
     };
 
-  return await Order.findByIdAndUpdate(id, {
-    status: ORDER_STATUS_CONFIRMED,
-    isPaid: true,
-    paidAt: Date.now(),
+  await paymentService.confirmPayment({
+    amount: order.totalPrice,
+    order: order.id,
+    paymentMethod: "online",
+    status: "completed",
+    transactionId: data.transactionId,
   });
+
+  return await Order.findByIdAndUpdate(
+    id,
+    {
+      status: ORDER_STATUS_CONFIRMED,
+    },
+    { new: true }
+  );
 };
 
 const updateOrderStatus = async (id, status) => {
-  const updateData =
-    status === ORDER_STATUS_COMPLETED
-      ? {
-          status,
-          isDelivered: true,
-          deliveredAt: Date.now(),
-        }
-      : { status };
-
-  return await Order.findByIdAndUpdate(id, updateData);
+  return await Order.findByIdAndUpdate(id, { status }, { new: true });
 };
 
 const deleteOrder = async (id) => {
@@ -113,17 +121,22 @@ const checkoutOrder = async (id, input, user) => {
       message: "Order already shipped.",
     };
 
-  if (order.status == ORDER_STATUS_DELIVERED)
+  if (order.status == ORDER_STATUS_COMPLETED)
     throw {
       statusCode: 400,
-      message: "Order already delivered.",
+      message: "Order already completed.",
     };
 
-  return await Order.findByIdAndUpdate(id, {
+  await Order.findByIdAndUpdate(id, {
     shippingAddress: user.address,
   });
 
-  //   return await requestKhalti({ orderId: id, customerInfo: user, ...input });
+  return await requestKhalti({
+    customerInfo: user,
+    orderId: id,
+    orderName: order.orderNumber,
+    ...input,
+  });
 };
 
 export default {

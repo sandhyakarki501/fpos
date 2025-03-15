@@ -67,17 +67,9 @@ const checkoutOrder = async (req, res) => {
     if (!input.totalAmount)
       return res.status(404).send("Total amount is required.");
 
-    if (!input.orderName)
-      return res.status(404).send("Order name is required.");
-
     const user = await User.findById(reqUser.id);
 
-    if (
-      !user?.address ||
-      !user?.address.city ||
-      !user?.address.country ||
-      !user?.address.province
-    )
+    if (!user?.address)
       throw {
         statusCode: 422,
         message: "Shipping address is required.",
@@ -102,7 +94,7 @@ const createOrder = async (req, res) => {
     const input = req.body;
     const userId = req?.user.id;
 
-    if (!input.orderItems)
+    if (!input.items)
       throw {
         statusCode: 422,
         message: "Order items are empty.",
@@ -139,8 +131,9 @@ const confirmOrder = async (req, res) => {
   try {
     const id = req.params.id;
     const status = req.query?.status;
+    const transactionId = req.query?.transactionId;
 
-    const data = await orderService.confirmOrder(id, status);
+    const data = await orderService.confirmOrder(id, { status, transactionId });
 
     res.json(data);
   } catch (error) {
