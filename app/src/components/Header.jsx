@@ -1,7 +1,12 @@
 import { BiCart, BiLogOut, BiMenu } from "react-icons/bi";
-import { HOME_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from "../constants/routes";
+import {
+  CART_ITEMS_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  REGISTER_ROUTE,
+} from "../constants/routes";
 import { IoRestaurant } from "react-icons/io5";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -10,24 +15,20 @@ import Search from "./Search";
 
 function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [showCart, setShowCart] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
+  const { menuItems } = useSelector((state) => state.cart);
 
   const isAuth = user ? true : false;
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const linkClass = ({ isActive }) =>
     isActive
       ? "block py-2 pr-4 pl-3 text-white rounded bg-blue-600 lg:bg-transparent lg:text-blue-600 lg:p-0"
       : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-600 lg:p-0";
-
-  function logout() {
-    dispatch(logoutUser());
-
-    localStorage.removeItem("authToken");
-  }
 
   return (
     <header className="sticky top-0 z-50">
@@ -44,25 +45,23 @@ function Header() {
           </div>
           <div className="flex items-center lg:order-2">
             {isAuth ? (
-              <div className="flex ">
-                <div className="relative flex items-center">
+              <div className="flex">
+                <div className="relative flex items-center mr-1">
                   <button
-                    className="mr-2 px-3 rounded"
-                    onClick={() => setShowCart(!showCart)}
+                    className="mr-2 rounded hover:bg-blue-100 p-2 cursor-pointer"
+                    onClick={() => navigate(CART_ITEMS_ROUTE)}
                   >
                     <BiCart className="text-xl" />
                   </button>
-                  <div
-                    className={`${
-                      showCart ? "block" : "hidden"
-                    } absolute top-16 -right-full`}
-                  >
-                    {/* <CartDropdown /> */}
-                  </div>
+                  {menuItems.length > 0 && (
+                    <span className="absolute top-0 right-2 text-[0.6rem] rounded-full text-white bg-red-600 px-1">
+                      {menuItems.length}
+                    </span>
+                  )}
                 </div>
                 <button
                   className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2focus:outline-none flex items-center"
-                  onClick={logout}
+                  onClick={() => dispatch(logoutUser())}
                 >
                   <span>Logout</span>
                   <BiLogOut className="text-xl ml-2" />

@@ -1,5 +1,9 @@
+import { addToCart } from "../../redux/cart/cartSlice";
 import { Link } from "react-router-dom";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import { MENU_ITEMS_ROUTE } from "../../constants/routes";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import pizza from "../../assets/images/pizza.png";
 
 const MenuItemCard = ({
@@ -10,6 +14,23 @@ const MenuItemCard = ({
   name,
   price,
 }) => {
+  const dispatch = useDispatch();
+
+  function addItemToCart() {
+    dispatch(
+      addToCart({
+        id,
+        name,
+        price,
+        image: imageUrls [0],
+      })
+    );
+
+    toast.success(`${name} added to cart successfully.`, {
+      autoClose: 1500,
+    });
+  }
+
   return (
     <div className="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
       <Link to={`${MENU_ITEMS_ROUTE}/${id}`}>
@@ -40,12 +61,13 @@ const MenuItemCard = ({
         <div className="flex items-center justify-between">
           <h3 className="text-xl">${price}</h3>
 
-          <Link
-            to="#"
+          <button
+            onClick={addItemToCart}
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
           >
             Order Now
-          </Link>
+            <MdOutlineShoppingCart className="ml-2" />
+          </button>
         </div>
       </div>
     </div>

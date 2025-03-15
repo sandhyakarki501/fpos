@@ -1,3 +1,4 @@
+const CART_ITEMS_ROUTE = "/cart";
 const HOME_ROUTE = "/";
 const LOGIN_ROUTE = "/auth/login";
 const MENU_ITEMS_ROUTE = "/menu-items";
@@ -9,6 +10,7 @@ const LIST_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/list`;
 
 export {
   ADD_MENU_ITEM_ROUTE,
+  CART_ITEMS_ROUTE,
   EDIT_MENU_ITEM_ROUTE,
   HOME_ROUTE,
   LIST_MENU_ITEM_ROUTE,
