@@ -67,23 +67,31 @@ const MenuItemsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {menuItems.map((item, index) => (
-            <MenuItemTableData
-              key={index}
-              {...item}
-              deleteAction={
-                <button
-                  onClick={() => {
-                    setSelectedItem(item);
-                    setIsOpen(true);
-                  }}
-                  className="font-medium text-red-600 hover:underline"
-                >
-                  Delete
-                </button>
-              }
-            />
-          ))}
+          {menuItems.length > 0 ? (
+            menuItems.map((item, index) => (
+              <MenuItemTableData
+                key={index}
+                {...item}
+                deleteAction={
+                  <button
+                    onClick={() => {
+                      setSelectedItem(item);
+                      setIsOpen(true);
+                    }}
+                    className="font-medium text-red-600 hover:underline"
+                  >
+                    Delete
+                  </button>
+                }
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} className="py-2 px-10">
+                <p className="text-center">Loading...</p>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
 
