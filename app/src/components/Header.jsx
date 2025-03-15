@@ -17,6 +17,7 @@ function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
+  const { menuItems } = useSelector((state) => state.cart);
 
   const isAuth = user ? true : false;
 
@@ -44,14 +45,19 @@ function Header() {
           </div>
           <div className="flex items-center lg:order-2">
             {isAuth ? (
-              <div className="flex ">
-                <div className="relative flex items-center">
+              <div className="flex">
+                <div className="relative flex items-center mr-1">
                   <button
                     className="mr-2 rounded hover:bg-blue-100 p-2 cursor-pointer"
                     onClick={() => navigate(CART_ITEMS_ROUTE)}
                   >
                     <BiCart className="text-xl" />
                   </button>
+                  {menuItems.length > 0 && (
+                    <span className="absolute top-0 right-2 text-[0.6rem] rounded-full text-white bg-red-600 px-1">
+                      {menuItems.length}
+                    </span>
+                  )}
                 </div>
                 <button
                   className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2focus:outline-none flex items-center"
