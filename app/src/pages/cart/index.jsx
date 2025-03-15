@@ -1,8 +1,9 @@
-import { IoCog } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
-import { LuCircleMinus, LuCirclePlus } from "react-icons/lu";
-import RemoveFromCart from "../../components/cart/RemoveFromCart";
 import { decreaseQuantity, increaseQuantity } from "../../redux/cart/cartSlice";
+import { IoCog } from "react-icons/io5";
+import { LuCircleMinus, LuCirclePlus } from "react-icons/lu";
+import { useDispatch, useSelector } from "react-redux";
+import CheckoutItems from "../../components/cart/Checkout";
+import RemoveFromCart from "../../components/cart/RemoveFromCart";
 
 const CartItems = () => {
   const { menuItems, totalPrice } = useSelector((state) => state.cart);
@@ -82,7 +83,7 @@ const CartItems = () => {
           </tbody>
         </table>
       </div>
-      {/* <CheckoutProducts disabled={items.length === 0} /> */}
+      <CheckoutItems disabled={menuItems.length === 0} />
     </div>
   );
 };
