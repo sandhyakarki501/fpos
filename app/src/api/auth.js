@@ -1,22 +1,19 @@
-import axios from "axios";
-import config from "../config/config";
+import api from "./api";
 
 const login = async (data) => {
-  const response = await axios.post(
-    `${config.baseApiUrl}/api/auth/login`,
-    data
-  );
+  const response = await api.post(`/api/auth/login`, data);
 
   return response;
 };
 
 const register = async (data) => {
-  const response = await axios.post(
-    `${config.baseApiUrl}/api/auth/register`,
-    data
-  );
+  const response = await api.post(`/api/auth/register`, data);
 
   return response;
 };
 
-export { login, register };
+const getSecurity = async () => {
+  return await api.get("/");
+};
+
+export { login, register, getSecurity };
