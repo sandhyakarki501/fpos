@@ -28,9 +28,9 @@ const Routes = () => {
     createRoutesFromElements(
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
+        <Route path={MENU_ITEMS_ROUTE} element={<MenuItems />} />
 
         <Route element={<AuthLayout />}>
-          <Route path={MENU_ITEMS_ROUTE} element={<MenuItems />} />
           <Route path={LIST_MENU_ITEM_ROUTE} element={<MenuItemsList />} />
           <Route path={ADD_MENU_ITEM_ROUTE} element={<AddMenuItem />} />
           <Route

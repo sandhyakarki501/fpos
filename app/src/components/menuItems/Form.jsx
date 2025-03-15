@@ -197,7 +197,7 @@ function MenuItemForm({ isEditing = false, menuItem }) {
               : "Add Menu Item"
           }
           disabled={loading}
-          className="bg-blue-700 hover:bg-blue-800 text-white px-10 py-2 rounded cursor-pointer disabled:bg-blue-300 disabled:cursor-not-allowed"
+          className="bg-blue-600 hover:bg-blue-800 text-white px-10 py-2 rounded cursor-pointer disabled:bg-blue-300 disabled:cursor-not-allowed"
         />
       </div>
       <ToastContainer />

@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../redux/auth/authSlice";
-import { Link, NavLink } from "react-router-dom";
-import navMenu from "../constants/navMenu";
-import { BiCart, BiLogoShopify, BiLogOut, BiMenu } from "react-icons/bi";
+import { BiCart, BiLogOut, BiMenu } from "react-icons/bi";
 import { HOME_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from "../constants/routes";
+import { IoRestaurant } from "react-icons/io5";
+import { Link, NavLink } from "react-router-dom";
+import { logoutUser } from "../redux/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import navMenu from "../constants/navMenu";
+import Search from "./Search";
 
 function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -18,8 +20,8 @@ function Header() {
 
   const linkClass = ({ isActive }) =>
     isActive
-      ? "block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0"
-      : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0";
+      ? "block py-2 pr-4 pl-3 text-white rounded bg-blue-600 lg:bg-transparent lg:text-blue-600 lg:p-0"
+      : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-600 lg:p-0";
 
   function logout() {
     dispatch(logoutUser());
@@ -32,11 +34,14 @@ function Header() {
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 shadow">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-2xl">
           <Link to={HOME_ROUTE} className="flex items-center">
-            <BiLogoShopify className="text-5xl mr-2" />
+            <IoRestaurant className="text-2xl mr-2" />
             <span className="self-center text-xl font-semibold whitespace-nowrap">
-              Shopify
+              Foodify
             </span>
           </Link>
+          <div className="hidden md:block">
+            <Search />
+          </div>
           <div className="flex items-center lg:order-2">
             {isAuth ? (
               <div className="flex ">
@@ -56,7 +61,7 @@ function Header() {
                   </div>
                 </div>
                 <button
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2focus:outline-none flex items-center"
+                  className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2focus:outline-none flex items-center"
                   onClick={logout}
                 >
                   <span>Logout</span>
@@ -73,7 +78,7 @@ function Header() {
                 </NavLink>
                 <NavLink
                   to={REGISTER_ROUTE}
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none "
+                  className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none "
                 >
                   Sign Up
                 </NavLink>
@@ -107,6 +112,9 @@ function Header() {
               </ul>
             ) : null}
           </div>
+        </div>
+        <div className="block md:hidden mt-2">
+          <Search />
         </div>
       </nav>
     </header>
