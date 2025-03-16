@@ -59,7 +59,7 @@ const RegisterForm = () => {
           type="email"
           className="border w-full mt-2 px-3 py-2 rounded"
           {...register("email", {
-            required: "Email address is required.",
+            required: "Email is required.",
             pattern: {
               value: EMAIL_REGEX,
               message: "Invalid email address.",
@@ -68,6 +68,22 @@ const RegisterForm = () => {
         />
         <p className="text-red-500 text-sm mt-2 ml-1">
           {errors.email?.message}
+        </p>
+      </div>
+
+      <div className="py-1">
+        <label htmlFor="address" className="ml-1 font-semibold text-sm">
+          Address
+        </label>
+        <input
+          type="text"
+          className="border w-full mt-2 px-3 py-2 rounded"
+          {...register("address", {
+            required: "Address is required.",
+          })}
+        />
+        <p className="text-red-500 text-sm mt-2 ml-1">
+          {errors.address?.message}
         </p>
       </div>
 
@@ -82,7 +98,9 @@ const RegisterForm = () => {
             required: "Phone number is required.",
           })}
         />
-        <p className="text-red-500 text-sm mt-2 ml-1">{errors.phone?.message}</p>
+        <p className="text-red-500 text-sm mt-2 ml-1">
+          {errors.phone?.message}
+        </p>
       </div>
 
       <div className="py-1">

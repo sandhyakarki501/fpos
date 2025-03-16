@@ -46,7 +46,7 @@ const MenuItems = () => {
         <div className="py-8">
           {loading ? (
             <div className="p-20 flex items-center justify-center w-full">
-              <Spinner width="w-20" height="h-20" />
+              <Spinner height="h-10" width="w-10" />
             </div>
           ) : menuItems.length > 0 ? (
             <div className="grid gap-8 justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">

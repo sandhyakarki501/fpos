@@ -26,6 +26,7 @@ import MenuItemsList from "./pages/menuItems/List";
 import Register from "./pages/auth/Register";
 import UnAuthLayout from "./layouts/UnAuthLayout";
 import OrdersList from "./pages/orders";
+import OrderPayment from "./pages/orders/Payment";
 
 const Routes = () => {
   const router = createBrowserRouter(
@@ -43,6 +44,7 @@ const Routes = () => {
             element={<EditMenuItem />}
           />
           <Route path={ORDERS_ROUTE} element={<OrdersList />} />
+          <Route path={`/orders/:id/payment`} element={<OrderPayment />} />
         </Route>
 
         <Route element={<UnAuthLayout />}>

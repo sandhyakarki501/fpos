@@ -1,5 +1,19 @@
 import api from "./api";
 
+async function checkoutOrder(id, data) {
+  const response = await api.put(`/api/orders/${id}/checkout`, data);
+
+  return response.data;
+}
+
+async function confirmOrder(id, status, transactionId) {
+  const response = await api.put(
+    `/api/orders/${id}/confirm?status=${status}&transactionId=${transactionId}`
+  );
+
+  return response.data;
+}
+
 async function createOrder(data) {
   const response = await api.post(`/api/orders`, data);
 
@@ -14,4 +28,4 @@ async function getOrdersByUser(status, userId) {
   return response.data;
 }
 
-export { createOrder, getOrdersByUser };
+export { checkoutOrder, createOrder, getOrdersByUser, confirmOrder };

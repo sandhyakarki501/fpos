@@ -70,7 +70,7 @@ function OrdersList() {
       {loading && (
         <>
           <div className="p-20 flex items-center justify-center w-full">
-            <Spinner width="w-20" height="h-20" />
+            <Spinner height="h-10" width="w-10" />
           </div>
         </>
       )}
