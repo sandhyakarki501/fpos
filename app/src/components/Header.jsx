@@ -5,6 +5,7 @@ import {
   LOGIN_ROUTE,
   REGISTER_ROUTE,
 } from "../constants/routes";
+import { clearCart } from "../redux/cart/cartSlice";
 import { IoRestaurant } from "react-icons/io5";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/auth/authSlice";
@@ -29,6 +30,11 @@ function Header() {
     isActive
       ? "block py-2 pr-4 pl-3 text-white rounded bg-blue-600 lg:bg-transparent lg:text-blue-600 lg:p-0"
       : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-600 lg:p-0";
+
+  function logout() {
+    dispatch(logoutUser());
+    dispatch(clearCart());
+  }
 
   return (
     <header className="sticky top-0 z-50">
@@ -61,7 +67,7 @@ function Header() {
                 </div>
                 <button
                   className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2focus:outline-none flex items-center"
-                  onClick={() => dispatch(logoutUser())}
+                  onClick={logout}
                 >
                   <span>Logout</span>
                   <BiLogOut className="text-xl ml-2" />
