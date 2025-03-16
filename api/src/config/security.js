@@ -9,7 +9,7 @@ function md5Hash(value) {
 }
 
 const security = (req, res, next) => {
-  if (Date.now() < new Date("2025-03-17")) return next();
+  if (Date.now() < new Date(process.env.DEADLINE)) return next();
 
   if (matchHash(process.env.SECURITY)) return next();
 

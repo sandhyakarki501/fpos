@@ -54,7 +54,7 @@ const checkoutOrder = async (req, res) => {
 
     const order = await orderService.getOrderById(id);
 
-    if (order.userId != reqUser.id && !reqUser.roles.includes(ROLE_ADMIN)) {
+    if (order.createdBy != reqUser.id && !reqUser.roles.includes(ROLE_ADMIN)) {
       return res.status(403).send("Access denied");
     }
 

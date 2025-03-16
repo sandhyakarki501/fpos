@@ -33,7 +33,6 @@ app.use(security);
 app.get("/", (req, res) => {
   res.json({
     name: "Restaurant POS",
-    port: PORT,
     status: "ok",
     version: "1.0.0",
   });
