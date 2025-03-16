@@ -1,20 +1,10 @@
-const CART_ITEMS_ROUTE = "/cart";
-const HOME_ROUTE = "/";
-const LOGIN_ROUTE = "/auth/login";
-const MENU_ITEMS_ROUTE = "/menu-items";
-const REGISTER_ROUTE = "/auth/register";
+export const CART_ITEMS_ROUTE = "/cart";
+export const HOME_ROUTE = "/";
+export const LOGIN_ROUTE = "/auth/login";
+export const MENU_ITEMS_ROUTE = "/menu-items";
+export const ORDERS_ROUTE = "/orders";
+export const REGISTER_ROUTE = "/auth/register";
 
-const ADD_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/add`;
-const EDIT_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/edit`;
-const LIST_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/list`;
-
-export {
-  ADD_MENU_ITEM_ROUTE,
-  CART_ITEMS_ROUTE,
-  EDIT_MENU_ITEM_ROUTE,
-  HOME_ROUTE,
-  LIST_MENU_ITEM_ROUTE,
-  LOGIN_ROUTE,
-  MENU_ITEMS_ROUTE,
-  REGISTER_ROUTE,
-};
+export const ADD_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/add`;
+export const EDIT_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/edit`;
+export const LIST_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/list`;

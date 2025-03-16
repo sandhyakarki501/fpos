@@ -77,7 +77,7 @@ const CartItems = () => {
             </tr>
             <tr>
               <td colSpan={4}></td>
-              <td className="font-semibold text-sm text-right">Total:</td>
+              <td className="font-semibold text-sm text-right">Grand Total:</td>
               <td className="text-right">${totalPrice}</td>
             </tr>
           </tbody>

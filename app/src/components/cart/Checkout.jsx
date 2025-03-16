@@ -1,7 +1,9 @@
 import { clearCart } from "../../redux/cart/cartSlice";
 import { createOrder } from "../../api/order";
+import { ORDERS_ROUTE } from "../../constants/routes";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Modal from "../Modal";
 
@@ -13,13 +15,15 @@ function CheckoutItems({ disabled }) {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   async function confirmCheckoutItem() {
     try {
       await createOrder({
         items: menuItems.map((item) => ({
           menuItem: item.id,
-          quantity: item.quantity,
           price: item.price,
+          quantity: item.quantity,
         })),
         totalPrice,
         customer: user.id,
@@ -28,7 +32,7 @@ function CheckoutItems({ disabled }) {
 
       dispatch(clearCart());
 
-      //navigate to orders route
+      navigate(ORDERS_ROUTE);
     } catch (error) {
       toast.error(error.response?.data);
     }
@@ -39,7 +43,7 @@ function CheckoutItems({ disabled }) {
       <button
         disabled={disabled}
         onClick={() => setShowCheckoutPopup(true)}
-        className="float-right text-white bg-blue-600 px-10 py-3 flex items-center md:text-xl disabled:bg-opacity-75"
+        className="float-right text-white bg-blue-600 px-10 py-3 flex items-center md:text-xl disabled:opacity-75"
       >
         Checkout
       </button>
