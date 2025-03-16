@@ -6,4 +6,12 @@ async function createOrder(data) {
   return response.data;
 }
 
-export { createOrder };
+async function getOrdersByUser(status, userId) {
+  const response = await api.get(
+    `/api/orders/users/${userId}?status=${status}`
+  );
+
+  return response.data;
+}
+
+export { createOrder, getOrdersByUser };

@@ -2,6 +2,7 @@ import {
   HOME_ROUTE,
   LOGIN_ROUTE,
   MENU_ITEMS_ROUTE,
+  ORDERS_ROUTE,
   REGISTER_ROUTE,
 } from "./routes";
 
@@ -14,6 +15,11 @@ const navMenu = [
   {
     label: "Menu",
     route: MENU_ITEMS_ROUTE,
+    auth: true,
+  },
+  {
+    label: "Orders",
+    route: ORDERS_ROUTE,
     auth: true,
   },
   {
