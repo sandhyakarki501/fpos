@@ -9,6 +9,9 @@ import {
 import { getOrdersByUser } from "../../api/order";
 import OrdersCard from "../../components/orders/Card";
 import Spinner from "../../components/Spinner";
+import { ROLE_ADMIN } from "../../constants/userRoles";
+import { ORDERS_LIST_ROUTE } from "../../constants/routes";
+import { Link } from "react-router-dom";
 
 const orderTabs = [
   {
@@ -29,7 +32,7 @@ const orderTabs = [
   },
 ];
 
-function OrdersList() {
+function Orders() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(ORDER_STATUS_PENDING);
   const [orders, setOrders] = useState([]);
@@ -51,6 +54,15 @@ function OrdersList() {
         <h2 className="text-center md:text-left text-2xl md:text-3xl font-semibold text-textColor">
           Your orders
         </h2>
+
+        {user?.roles.includes(ROLE_ADMIN) && (
+          <Link
+            to={ORDERS_LIST_ROUTE}
+            className="px-4 py-2 bg-slate-100 rounded shadow"
+          >
+            All Orders
+          </Link>
+        )}
       </div>
 
       <div className="flex justify-between items-around w-full my-5 border-b-1 border-b-blue-100">
@@ -87,4 +99,4 @@ function OrdersList() {
   );
 }
 
-export default OrdersList;
+export default Orders;
