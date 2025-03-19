@@ -67,15 +67,11 @@ function OrdersList() {
         ))}
       </div>
 
-      {loading && (
-        <>
-          <div className="p-20 flex items-center justify-center w-full">
-            <Spinner height="h-10" width="w-10" />
-          </div>
-        </>
-      )}
-
-      {orders.length === 0 ? (
+      {loading ? (
+        <div className="p-20 flex items-center justify-center w-full">
+          <Spinner height="h-10" width="w-10" />
+        </div>
+      ) : orders.length === 0 ? (
         <div className="text-center p-3">No orders</div>
       ) : (
         orders?.map((order, index) => (
