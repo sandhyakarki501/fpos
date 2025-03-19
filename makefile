@@ -1,5 +1,5 @@
-run.app
+run.app:
 	cd app && npm run dev
 
-run.api
+run.api:
 	cd api && npm run dev
