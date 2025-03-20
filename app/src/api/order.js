@@ -20,6 +20,12 @@ async function createOrder(data) {
   return response.data;
 }
 
+async function getOrders() {
+  const response = await api.get(`/api/orders`);
+
+  return response.data;
+}
+
 async function getOrdersByUser(status, userId) {
   const response = await api.get(
     `/api/orders/users/${userId}?status=${status}`
@@ -28,4 +34,26 @@ async function getOrdersByUser(status, userId) {
   return response.data;
 }
 
-export { checkoutOrder, createOrder, getOrdersByUser, confirmOrder };
+async function updateOrderStatus(id, status) {
+  const response = await api.put(`/api/orders/${id}/status`, {
+    status,
+  });
+
+  return response.data;
+}
+
+async function deleteOrder(id) {
+  const response = await api.delete(`/api/orders/${id}`);
+
+  return response.data;
+}
+
+export {
+  checkoutOrder,
+  createOrder,
+  getOrders,
+  getOrdersByUser,
+  confirmOrder,
+  deleteOrder,
+  updateOrderStatus,
+};

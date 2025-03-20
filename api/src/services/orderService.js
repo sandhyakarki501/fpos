@@ -13,7 +13,7 @@ const getAll = async (query) => {
   const reqQuery = query?.status ? { status: query.status } : {};
 
   const orders = await Order.find(reqQuery)
-    .sort(JSON.stringify({ createdAt: -1 }))
+    .sort({ createdAt: -1 })
     .populate("items.menuItem")
     .exec();
 
@@ -24,6 +24,7 @@ const getOrdersByUser = async (query, userId) => {
   const status = query?.status || ORDER_STATUS_PENDING;
 
   const orders = await Order.find({ status, customer: userId })
+    .sort({ createdAt: -1 })
     .populate("items.menuItem")
     .exec();
 

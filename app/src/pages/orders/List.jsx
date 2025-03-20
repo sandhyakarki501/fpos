@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import OrdersTable from "../../components/orders/Table";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { HOME_ROUTE } from "../../constants/routes";
+import { useEffect } from "react";
 import { ROLE_ADMIN } from "../../constants/userRoles";
+import { HOME_ROUTE } from "../../constants/routes";
 
 function OrdersList() {
   const { user } = useSelector((state) => state.auth);
@@ -19,7 +20,7 @@ function OrdersList() {
         All Orders
       </h2>
 
-      {/* <OrdersTable /> */}
+      <OrdersTable />
     </div>
   );
 }
