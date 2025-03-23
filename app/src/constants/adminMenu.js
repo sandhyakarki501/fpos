@@ -6,7 +6,7 @@ import {
 
 const adminMenu = [
   {
-    label: "Manage Menu Items",
+    label: "Manage Menu",
     route: MENU_ITEM_LIST_ROUTE,
   },
   {

@@ -81,24 +81,28 @@ function Header() {
                   <div
                     className={`${
                       showProfile ? "block" : "hidden"
-                    } w-40 py-3 px-3 rounded-xl bg-gray-50 absolute top-10 right-0 shadow z-20`}
+                    } w-44 py-3 px-3 rounded-xl bg-gray-100 absolute top-10 right-0 shadow z-20`}
                     onClick={() => setShowProfile(false)}
                   >
-                    <h3 className="mb-2 font-semibold ">Hi! {user.name}</h3>
+                    <h3 className="px-2 font-semibold ">
+                      Hi! {user.name}
+                    </h3>
 
-                    {user.roles.includes(ROLE_ADMIN) &&
-                      adminMenu.map(({ route, label }) => (
-                        <Link
-                        key={route}
-                          to={route}
-                          className="bg-slate-100 hover:bg-slate-200 text-black w-full rounded py-1 flex items-center justify-center my-1"
-                        >
-                          {label}
-                        </Link>
-                      ))}
+                    <div className="py-2">
+                      {user.roles.includes(ROLE_ADMIN) &&
+                        adminMenu.map(({ route, label }) => (
+                          <Link
+                            key={route}
+                            to={route}
+                            className="bg-slate-200 hover:bg-slate-300 text-black w-full rounded text-sm py-1 px-2 flex items-center justify-start my-1"
+                          >
+                            {label}
+                          </Link>
+                        ))}
+                    </div>
 
                     <button
-                      className="bg-blue-600 text-white w-full rounded py-1 flex items-center justify-center cursor-pointer mt-2"
+                      className="bg-blue-600 text-white w-full rounded py-1 text-sm flex items-center justify-center cursor-pointer"
                       onClick={logout}
                     >
                       Logout
