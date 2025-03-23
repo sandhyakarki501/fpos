@@ -1,14 +1,16 @@
-import { BiCart, BiLogOut, BiMenu } from "react-icons/bi";
+import { BiCart, BiMenu } from "react-icons/bi";
 import {
   CART_ITEMS_ROUTE,
   HOME_ROUTE,
-  LOGIN_ROUTE,
-  REGISTER_ROUTE,
+  ORDERS_ROUTE,
+  PROFILE_ROUTE,
 } from "../constants/routes";
 import { clearCart } from "../redux/cart/cartSlice";
+import { ImUser } from "react-icons/im";
 import { IoRestaurant } from "react-icons/io5";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/auth/authSlice";
+import { MdLogout } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import navMenu from "../constants/navMenu";
@@ -16,6 +18,7 @@ import Search from "./Search";
 
 function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
   const { menuItems } = useSelector((state) => state.cart);
@@ -54,7 +57,7 @@ function Header() {
               <div className="flex">
                 <div className="relative flex items-center mr-1">
                   <button
-                    className="mr-2 rounded hover:bg-blue-100 p-2 cursor-pointer"
+                    className="rounded hover:bg-blue-100 p-2 cursor-pointer"
                     onClick={() => navigate(CART_ITEMS_ROUTE)}
                   >
                     <BiCart className="text-xl" />
@@ -65,35 +68,51 @@ function Header() {
                     </span>
                   )}
                 </div>
-                <button
-                  className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2focus:outline-none flex items-center"
-                  onClick={logout}
-                >
-                  <span>Logout</span>
-                  <BiLogOut className="text-xl ml-2" />
-                </button>
+                <div className="relative">
+                  <button
+                    className="rounded hover:bg-blue-100 p-2 cursor-pointer"
+                    onClick={() => setShowProfile(!showProfile)}
+                  >
+                    <ImUser className="text-xl rounded-full border border-gray-200" />
+                  </button>
+                  <div
+                    className={`${
+                      showProfile ? "block" : "hidden"
+                    } w-40 py-3 px-3 rounded-xl bg-gray-50 absolute top-10 right-0 shadow z-20`}
+                    onClick={() => setShowProfile(false)}
+                  >
+                    <h3 className="mb-2 font-semibold ">Hi! {user.name}</h3>
+
+                    <Link
+                      to={PROFILE_ROUTE}
+                      className="bg-slate-100 hover:bg-slate-200 text-black w-full rounded py-1 flex items-center justify-center my-1"
+                    >
+                      Profile
+                    </Link>
+
+                    <Link
+                      to={ORDERS_ROUTE}
+                      className="bg-slate-100 hover:bg-slate-200 text-black w-full rounded py-1 flex items-center justify-center my-1"
+                    >
+                      Orders
+                    </Link>
+
+                    <button
+                      className="bg-blue-600 text-white w-full rounded py-1 flex items-center justify-center cursor-pointer mt-2"
+                      onClick={logout}
+                    >
+                      Logout
+                      <MdLogout className="ml-2" />
+                    </button>
+                  </div>
+                </div>
               </div>
-            ) : (
-              <>
-                <NavLink
-                  to={LOGIN_ROUTE}
-                  className="text-gray-800  hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-                >
-                  Log in
-                </NavLink>
-                <NavLink
-                  to={REGISTER_ROUTE}
-                  className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none "
-                >
-                  Sign Up
-                </NavLink>
-              </>
-            )}
+            ) : null}
             <button
-              className="inline-flex items-center p-2 ml-1 text-sm bg-slate-900 text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              className="inline-flex items-center p-2 ml-1 text-sm bg-gray-100 rounded-lg lg:hidden hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200"
               onClick={() => setShowMobileMenu(!showMobileMenu)}
             >
-              <BiMenu className="text-2xl" />
+              <BiMenu className="text-xl" />
             </button>
           </div>
           <div
@@ -101,21 +120,19 @@ function Header() {
               showMobileMenu ? "block" : "hidden"
             } justify-between items-center w-full lg:flex lg:w-auto lg:order-1`}
           >
-            {isAuth ? (
-              <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                {navMenu
-                  .filter((menu) => menu.auth === isAuth)
-                  .map((menu) => {
-                    return (
-                      <li key={menu.label}>
-                        <NavLink to={menu.route} className={linkClass}>
-                          {menu.label}
-                        </NavLink>
-                      </li>
-                    );
-                  })}
-              </ul>
-            ) : null}
+            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+              {navMenu
+                .filter((menu) => menu.auth === isAuth)
+                .map((menu) => {
+                  return (
+                    <li key={menu.label}>
+                      <NavLink to={menu.route} className={linkClass}>
+                        {menu.label}
+                      </NavLink>
+                    </li>
+                  );
+                })}
+            </ul>
           </div>
         </div>
         <div className="block md:hidden mt-2">
