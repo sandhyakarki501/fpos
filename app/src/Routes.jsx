@@ -12,6 +12,7 @@ import {
   LIST_MENU_ITEM_ROUTE,
   LOGIN_ROUTE,
   MENU_ITEMS_ROUTE,
+  ORDERS_LIST_ROUTE,
   ORDERS_ROUTE,
   REGISTER_ROUTE,
 } from "./constants/routes";
@@ -25,8 +26,9 @@ import MenuItems from "./pages/menuItems";
 import MenuItemsList from "./pages/menuItems/List";
 import Register from "./pages/auth/Register";
 import UnAuthLayout from "./layouts/UnAuthLayout";
-import OrdersList from "./pages/orders";
+import Orders from "./pages/orders";
 import OrderPayment from "./pages/orders/Payment";
+import OrdersList from "./pages/orders/List";
 
 const Routes = () => {
   const router = createBrowserRouter(
@@ -43,7 +45,8 @@ const Routes = () => {
             path={`${EDIT_MENU_ITEM_ROUTE}/:id`}
             element={<EditMenuItem />}
           />
-          <Route path={ORDERS_ROUTE} element={<OrdersList />} />
+          <Route path={ORDERS_LIST_ROUTE} element={<OrdersList />} />
+          <Route path={ORDERS_ROUTE} element={<Orders />} />
           <Route path={`/orders/:id/payment`} element={<OrderPayment />} />
         </Route>
 

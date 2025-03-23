@@ -2,6 +2,7 @@ export const CART_ITEMS_ROUTE = "/cart";
 export const HOME_ROUTE = "/";
 export const LOGIN_ROUTE = "/auth/login";
 export const MENU_ITEMS_ROUTE = "/menu-items";
+export const ORDERS_LIST_ROUTE = "/orders/all";
 export const ORDERS_ROUTE = "/orders";
 export const REGISTER_ROUTE = "/auth/register";
 
