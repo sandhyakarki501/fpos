@@ -42,17 +42,20 @@ const Routes = () => {
 
         <Route element={<AuthLayout />}>
           <Route path={CART_ITEMS_ROUTE} element={<CartItems />} />
-          <Route path={LIST_MENU_ITEM_ROUTE} element={<MenuItemsList />} />
-          <Route path={ADD_MENU_ITEM_ROUTE} element={<AddMenuItem />} />
-          <Route
-            path={`${EDIT_MENU_ITEM_ROUTE}/:id`}
-            element={<EditMenuItem />}
-          />
           <Route path={ORDERS_ROUTE} element={<Orders />} />
-          <Route path={`/orders/:id/payment`} element={<OrderPayment />} />
+          <Route
+            path={`${ORDERS_ROUTE}/:id/payment`}
+            element={<OrderPayment />}
+          />
           <Route path={PROFILE_ROUTE} element={<ProfilePage />} />
 
           <Route element={<AdminLayout />}>
+            <Route path={LIST_MENU_ITEM_ROUTE} element={<MenuItemsList />} />
+            <Route path={ADD_MENU_ITEM_ROUTE} element={<AddMenuItem />} />
+            <Route
+              path={`${EDIT_MENU_ITEM_ROUTE}/:id`}
+              element={<EditMenuItem />}
+            />
             <Route path={ORDERS_LIST_ROUTE} element={<OrdersList />} />
           </Route>
         </Route>
