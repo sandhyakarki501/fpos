@@ -31,6 +31,7 @@ import Orders from "./pages/orders";
 import OrderPayment from "./pages/orders/Payment";
 import OrdersList from "./pages/orders/List";
 import ProfilePage from "./pages/profile";
+import AdminLayout from "./layouts/AdminLayout";
 
 const Routes = () => {
   const router = createBrowserRouter(
@@ -47,10 +48,13 @@ const Routes = () => {
             path={`${EDIT_MENU_ITEM_ROUTE}/:id`}
             element={<EditMenuItem />}
           />
-          <Route path={ORDERS_LIST_ROUTE} element={<OrdersList />} />
           <Route path={ORDERS_ROUTE} element={<Orders />} />
           <Route path={`/orders/:id/payment`} element={<OrderPayment />} />
           <Route path={PROFILE_ROUTE} element={<ProfilePage />} />
+
+          <Route element={<AdminLayout />}>
+            <Route path={ORDERS_LIST_ROUTE} element={<OrdersList />} />
+          </Route>
         </Route>
 
         <Route element={<UnAuthLayout />}>
