@@ -21,7 +21,7 @@ const MenuItemsList = () => {
             </Link>
             <Link
               to={ADD_MENU_ITEM_ROUTE}
-              className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 flex items-center"
+              className="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2 flex items-center"
             >
               Add menu item
               <RiAddLargeLine className="ml-2" />
