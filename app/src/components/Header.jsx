@@ -2,6 +2,7 @@ import { BiCart, BiMenu } from "react-icons/bi";
 import {
   CART_ITEMS_ROUTE,
   HOME_ROUTE,
+  ORDERS_LIST_ROUTE,
   ORDERS_ROUTE,
   PROFILE_ROUTE,
 } from "../constants/routes";
@@ -15,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import navMenu from "../constants/navMenu";
 import Search from "./Search";
+import { ROLE_ADMIN } from "../constants/userRoles";
+import adminMenu from "../constants/adminMenu";
 
 function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -83,19 +86,16 @@ function Header() {
                   >
                     <h3 className="mb-2 font-semibold ">Hi! {user.name}</h3>
 
-                    <Link
-                      to={PROFILE_ROUTE}
-                      className="bg-slate-100 hover:bg-slate-200 text-black w-full rounded py-1 flex items-center justify-center my-1"
-                    >
-                      Profile
-                    </Link>
-
-                    <Link
-                      to={ORDERS_ROUTE}
-                      className="bg-slate-100 hover:bg-slate-200 text-black w-full rounded py-1 flex items-center justify-center my-1"
-                    >
-                      Orders
-                    </Link>
+                    {user.roles.includes(ROLE_ADMIN) &&
+                      adminMenu.map(({ route, label }) => (
+                        <Link
+                        key={route}
+                          to={route}
+                          className="bg-slate-100 hover:bg-slate-200 text-black w-full rounded py-1 flex items-center justify-center my-1"
+                        >
+                          {label}
+                        </Link>
+                      ))}
 
                     <button
                       className="bg-blue-600 text-white w-full rounded py-1 flex items-center justify-center cursor-pointer mt-2"

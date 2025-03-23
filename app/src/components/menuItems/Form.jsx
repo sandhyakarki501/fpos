@@ -1,5 +1,5 @@
 import { addMenuItem, editMenuItem } from "../../api/menuItem";
-import { LIST_MENU_ITEM_ROUTE } from "../../constants/routes";
+import { MENU_ITEM_LIST_ROUTE } from "../../constants/routes";
 import { toast, ToastContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -45,7 +45,7 @@ function MenuItemForm({ isEditing = false, menuItem }) {
           : "Menu item added successfully.",
         {
           autoClose: 500,
-          onClose: () => navigate(LIST_MENU_ITEM_ROUTE),
+          onClose: () => navigate(MENU_ITEM_LIST_ROUTE),
         }
       );
     } catch (error) {
@@ -60,7 +60,7 @@ function MenuItemForm({ isEditing = false, menuItem }) {
   return (
     <form
       onSubmit={handleSubmit(submitForm)}
-      className="w-full px-10 py-8 md:px-16 md:py-12 shadow-xl rounded-2xl "
+      className="w-full px-10 py-8 md:px-12 shadow-xl rounded-2xl bg-white mt-5 mb-10"
     >
       <div className="py-2">
         <label htmlFor="name" className="font-semibold text-sm uppercase p-1 ">

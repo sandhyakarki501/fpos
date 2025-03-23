@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
 import { HOME_ROUTE } from "../constants/routes";
+import { Navigate, Outlet } from "react-router-dom";
 import { ROLE_ADMIN } from "../constants/userRoles";
-import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AdminLayout = () => {
   const { user } = useSelector((state) => state.auth);

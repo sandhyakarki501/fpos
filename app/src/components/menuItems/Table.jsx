@@ -40,7 +40,7 @@ const MenuItemsTable = () => {
   }, [refreshTable]);
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg mb-10">
       <table className="w-full text-sm text-left">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200">
           <tr>

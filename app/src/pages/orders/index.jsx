@@ -49,53 +49,44 @@ function Orders() {
   }, [status, user]);
 
   return (
-    <div className="py-8 px-2 sm:p-10">
-      <div className="flex items-center justify-between">
+    <section className="py-10 bg-slate-100 min-h-svh  px-4 lg:px-6">
+      <div className="max-w-screen-2xl mx-auto">
         <h2 className="text-center md:text-left text-2xl md:text-3xl font-semibold text-textColor">
           Your orders
         </h2>
 
-        {user?.roles.includes(ROLE_ADMIN) && (
-          <Link
-            to={ORDERS_LIST_ROUTE}
-            className="px-4 py-2 bg-slate-100 rounded shadow"
-          >
-            All Orders
-          </Link>
+        <div className="flex justify-between items-around w-full my-5 border-b-1 border-b-blue-100">
+          {orderTabs.map((tab, index) => (
+            <button
+              key={index}
+              className={`${
+                status == tab.status ? "border-b-2 border-b-blue-500" : ""
+              } p-2`}
+              onClick={() => setStatus(tab.status)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {loading ? (
+          <div className="p-20 flex items-center justify-center w-full">
+            <Spinner height="h-10" width="w-10" />
+          </div>
+        ) : orders.length === 0 ? (
+          <div className="text-center p-3">No orders</div>
+        ) : (
+          orders?.map((order, index) => (
+            <OrdersCard
+              key={index}
+              order={order}
+              status={status}
+              loading={loading}
+            />
+          ))
         )}
       </div>
-
-      <div className="flex justify-between items-around w-full my-5 border-b-1 border-b-blue-100">
-        {orderTabs.map((tab, index) => (
-          <button
-            key={index}
-            className={`${
-              status == tab.status ? "border-b-2 border-b-blue-500" : ""
-            } p-2`}
-            onClick={() => setStatus(tab.status)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      {loading ? (
-        <div className="p-20 flex items-center justify-center w-full">
-          <Spinner height="h-10" width="w-10" />
-        </div>
-      ) : orders.length === 0 ? (
-        <div className="text-center p-3">No orders</div>
-      ) : (
-        orders?.map((order, index) => (
-          <OrdersCard
-            key={index}
-            order={order}
-            status={status}
-            loading={loading}
-          />
-        ))
-      )}
-    </div>
+    </section>
   );
 }
 
