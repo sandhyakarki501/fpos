@@ -152,15 +152,6 @@ const updateOrderStatus = async (req, res) => {
         message: "Status is required.",
       };
 
-    if (
-      input.status !== ORDER_STATUS_SHIPPED &&
-      input.status !== ORDER_STATUS_COMPLETED
-    )
-      throw {
-        statusCode: 400,
-        message: "Status not allowed.",
-      };
-
     const data = await orderService.updateOrderStatus(id, input.status);
 
     res.json(data);

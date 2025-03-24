@@ -1,7 +1,7 @@
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { getMenuItemById } from "../../api/menuItem";
 import { Link, useParams } from "react-router-dom";
-import { LIST_MENU_ITEM_ROUTE } from "../../constants/routes";
+import { MENU_ITEM_LIST_ROUTE } from "../../constants/routes";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import MenuItemForm from "../../components/menuItems/Form";
@@ -24,15 +24,17 @@ const EditMenuItem = () => {
   }, [params.id]);
 
   return (
-    <section className="py-5 min-h-[90vh]">
+    <section className="py-10 bg-slate-100 min-h-svh px-4 lg:px-6">
       <div className="max-w-screen-2xl mx-auto">
-        <Link to={LIST_MENU_ITEM_ROUTE} className="px-5 py-2 flex items-center">
+        <Link to={MENU_ITEM_LIST_ROUTE} className="flex items-center">
           <BiLeftArrowAlt className="mr-1" />
           Back
         </Link>
 
         <div className="md:w-2/3 xl:w-1/2 mx-auto px-4">
-          <Title label="Edit Menu Item" />
+          <h2 className="text-center text-2xl md:text-3xl font-semibold text-textColor">
+            Edit Menu item
+          </h2>{" "}
           {menuItem ? (
             <MenuItemForm isEditing={true} menuItem={menuItem} />
           ) : (
