@@ -107,7 +107,7 @@ const SchedulesPage = () => {
       <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        label={`Re-schedule ${selectedEvent?.title}`}
+        label={`Schedule of ${selectedEvent?.title}`}
         body={
           selectedEvent && (
             <div>
