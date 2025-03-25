@@ -4,3 +4,12 @@
 .bg-opacity-50 {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+/* react-big-calendar styles */
+.rbc-allday-cell {
+  display: none !important;
+}
+
+.rbc-time-content {
+  border-top-width: 1px;
+}

@@ -13,6 +13,7 @@ export const ADD_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/add`;
 export const ADD_SCHEDULE_ROUTE = `${SCHEDULES_ROUTE}/add`;
 export const ADD_STAFF_ROUTE = `${STAFF_ROUTE}/add`;
 export const EDIT_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/edit`;
+export const EDIT_SCHEDULE_ROUTE = `${SCHEDULES_ROUTE}/edit`;
 export const EDIT_STAFF_ROUTE = `${STAFF_ROUTE}/edit`;
 export const MENU_ITEM_LIST_ROUTE = `${MENU_ITEMS_ROUTE}/list`;
 export const ORDERS_LIST_ROUTE = `${ORDERS_ROUTE}/list`;

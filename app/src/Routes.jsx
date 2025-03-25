@@ -11,6 +11,7 @@ import {
   ADD_STAFF_ROUTE,
   CART_ITEMS_ROUTE,
   EDIT_MENU_ITEM_ROUTE,
+  EDIT_SCHEDULE_ROUTE,
   EDIT_STAFF_ROUTE,
   LOGIN_ROUTE,
   MENU_ITEM_LIST_ROUTE,
@@ -28,7 +29,9 @@ import AddStaff from "./pages/users/staffs/Add";
 import AdminLayout from "./layouts/AdminLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import CartItems from "./pages/cart";
+import CreateSchedule from "./pages/schedules/Add";
 import EditMenuItem from "./pages/menuItems/Edit";
+import EditSchedule from "./pages/schedules/Edit";
 import EditStaff from "./pages/users/staffs/Edit";
 import Login from "./pages/auth/Login";
 import MainLayout from "./layouts/MainLayout";
@@ -43,7 +46,6 @@ import SchedulesPage from "./pages/schedules";
 import StaffsListPage from "./pages/users/staffs/List";
 import UnAuthLayout from "./layouts/UnAuthLayout";
 import UsersPage from "./pages/users";
-import CreateSchedule from "./pages/schedules/Add";
 
 const Routes = () => {
   const router = createBrowserRouter(
@@ -76,6 +78,10 @@ const Routes = () => {
 
             <Route path={SCHEDULES_ROUTE} element={<SchedulesPage />} />
             <Route path={ADD_SCHEDULE_ROUTE} element={<CreateSchedule />} />
+            <Route
+              path={`${EDIT_SCHEDULE_ROUTE}/:id`}
+              element={<EditSchedule />}
+            />
           </Route>
         </Route>
 
