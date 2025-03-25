@@ -2,8 +2,8 @@ import { addToCart } from "../../redux/cart/cartSlice";
 import { Link } from "react-router-dom";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { MENU_ITEMS_ROUTE } from "../../constants/routes";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 import pizza from "../../assets/images/pizza.png";
 
 const MenuItemCard = ({
@@ -16,13 +16,21 @@ const MenuItemCard = ({
 }) => {
   const dispatch = useDispatch();
 
+  const { user } = useSelector((state) => state.auth);
+
   function addItemToCart() {
+    if (!user) {
+      toast.error("Please login to order items.", { autoClose: 1500 });
+
+      return;
+    }
+
     dispatch(
       addToCart({
         id,
         name,
         price,
-        image: imageUrls [0],
+        image: imageUrls[0],
       })
     );
 
@@ -70,6 +78,7 @@ const MenuItemCard = ({
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

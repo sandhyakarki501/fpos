@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { ROLE_ADMIN, ROLE_EMPLOYEE, ROLE_USER } from "../constants/roles.js";
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   address: String,
   createdAt: { type: Date, default: Date.now() },
   email: { type: String, required: true, unique: true },
@@ -20,4 +20,4 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.model("User", userSchema);
