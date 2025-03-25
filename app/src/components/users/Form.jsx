@@ -1,4 +1,4 @@
-import { createUser } from "../../api/user";
+import { createUser, updateUser } from "../../api/user";
 import { EMAIL_REGEX } from "../../constants/regex";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { ROLE_EMPLOYEE, ROLE_USER } from "../../constants/userRoles";
@@ -27,10 +27,14 @@ const UserForm = ({ user, isEditing = false }) => {
   async function submitForm(data) {
     setLoading(true);
 
-    try {
-      await createUser({ ...data, roles: [ROLE_EMPLOYEE, ROLE_USER] });
+    if (!password) delete data.password;
 
-      toast.success("Staff created successfully", {
+    try {
+      isEditing
+        ? await updateUser(user.id, data)
+        : await createUser({ ...data, roles: [ROLE_EMPLOYEE, ROLE_USER] });
+
+      toast.success(`Staff ${isEditing ? "updated" : "created"} successfully`, {
         autoClose: 500,
         onClose: () => navigate(STAFF_LIST_ROUTE),
       });
@@ -65,7 +69,7 @@ const UserForm = ({ user, isEditing = false }) => {
         </label>
         <input
           type="email"
-          className="border w-full mt-2 px-3 py-2 rounded"
+          className="border w-full mt-2 px-3 py-2 rounded disabled:bg-slate-100 disabled:text-gray-600"
           disabled={isEditing}
           {...register("email", {
             required: "Email is required.",
@@ -115,7 +119,10 @@ const UserForm = ({ user, isEditing = false }) => {
             type={showPassword ? "text" : "password"}
             className="border w-full mt-2 px-3 py-2 rounded"
             {...register("password", {
-              required: "Password is required.",
+              required: {
+                value: !isEditing,
+                message: "Password is required.",
+              },
               minLength: {
                 value: 6,
                 message: "Password length must be greater than 6.",
@@ -140,7 +147,10 @@ const UserForm = ({ user, isEditing = false }) => {
           type="password"
           className="border w-full mt-2 px-3 py-2 rounded"
           {...register("confirmPassword", {
-            required: "Confirm password is required.",
+            required: {
+              value: !isEditing,
+              message: "Confirm password is required.",
+            },
             validate: (value) => {
               return value == password || "Passwords do not match.";
             },

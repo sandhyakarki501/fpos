@@ -11,7 +11,7 @@ const StaffsTableData = ({
   email,
   phone,
   address,
-  isActive = true,
+  isActive,
   deleteAction,
 }) => {
   const [isItemActive, setIsItemActive] = useState(isActive);

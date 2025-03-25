@@ -36,7 +36,9 @@ const StaffsTable = () => {
   useEffect(() => {
     if (!refreshTable) return;
 
-    getStaffs().then((data) => setStaffs(data));
+    getStaffs()
+      .then((data) => setStaffs(data))
+      .catch((error) => toast.error(error.response?.data, { autoClose: 1500 }));
   }, [refreshTable]);
 
   return (
