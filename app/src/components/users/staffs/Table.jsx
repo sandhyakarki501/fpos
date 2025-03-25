@@ -1,13 +1,13 @@
-import { deleteMenuItem, getAllMenuItems } from "../../api/menuItem";
+import { deleteUser, getStaffs } from "../../../api/user";
 import { RiSettings5Line } from "react-icons/ri";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
-import MenuItemTableData from "./TableData";
-import Modal from "../Modal";
+import Modal from "../../Modal";
+import StaffsTableData from "./TableData";
 
-const MenuItemsTable = () => {
+const StaffsTable = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [menuItems, setMenuItems] = useState([]);
+  const [staffs, setStaffs] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [refreshTable, setRefreshTable] = useState(true);
 
@@ -15,7 +15,7 @@ const MenuItemsTable = () => {
     setRefreshTable(false);
 
     try {
-      await deleteMenuItem(selectedItem?.id);
+      await deleteUser(selectedItem?.id);
 
       toast(`${selectedItem?.name} deleted successfully.`, {
         type: "success",
@@ -36,7 +36,9 @@ const MenuItemsTable = () => {
   useEffect(() => {
     if (!refreshTable) return;
 
-    getAllMenuItems().then((response) => setMenuItems(response.data));
+    getStaffs()
+      .then((data) => setStaffs(data))
+      .catch((error) => toast.error(error.response?.data, { autoClose: 1500 }));
   }, [refreshTable]);
 
   return (
@@ -45,16 +47,19 @@ const MenuItemsTable = () => {
         <thead className="text-xs text-gray-700 uppercase bg-gray-200">
           <tr>
             <th scope="col" className="px-6 py-3">
-              id
+              S.N
             </th>
             <th scope="col" className="px-6 py-3">
-              Menu item name
+              Name
             </th>
             <th scope="col" className="px-6 py-3">
-              Category
+              Email
             </th>
             <th scope="col" className="px-6 py-3">
-              Price
+              Phone
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Address
             </th>
             <th scope="col" className="px-6 py-3">
               Status
@@ -67,9 +72,9 @@ const MenuItemsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {menuItems.length > 0 ? (
-            menuItems.map((item, index) => (
-              <MenuItemTableData
+          {staffs.length > 0 ? (
+            staffs.map((item, index) => (
+              <StaffsTableData
                 key={index}
                 index={index}
                 {...item}
@@ -128,4 +133,4 @@ const MenuItemsTable = () => {
   );
 };
 
-export default MenuItemsTable;
+export default StaffsTable;

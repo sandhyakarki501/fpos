@@ -40,6 +40,7 @@ export const formatUserData = (data) => ({
   address: data.address,
   createdAt: data.createdAt,
   email: data.email,
+  isActive: data?.isActive == undefined ? true : data.isActive,
   name: data.name,
   phone: data.phone ?? null,
   profileImageUrl: data.profileImageUrl ?? null,

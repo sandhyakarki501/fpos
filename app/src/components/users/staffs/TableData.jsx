@@ -1,15 +1,16 @@
-import { EDIT_MENU_ITEM_ROUTE } from "../../constants/routes";
-import { editMenuItem } from "../../api/menuItem";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { toast } from "react-toastify";
+import { useState } from "react";
+import { EDIT_STAFF_ROUTE } from "../../../constants/routes";
+import { updateUser } from "../../../api/user";
 
-const MenuItemTableData = ({
-  id,
+const StaffsTableData = ({
   index,
+  id,
   name,
-  category,
-  price,
+  email,
+  phone,
+  address,
   isActive,
   deleteAction,
 }) => {
@@ -18,7 +19,7 @@ const MenuItemTableData = ({
   function updateStatus() {
     setIsItemActive(!isItemActive);
 
-    editMenuItem(id, { isActive: !isItemActive })
+    updateUser(id, { isActive: !isItemActive })
       .then(() => {
         toast.success(`${name} status update successful.`, {
           autoClose: 500,
@@ -32,15 +33,16 @@ const MenuItemTableData = ({
   return (
     <>
       <tr className="bg-white border-b border-gray-200 hover:bg-gray-50 ">
-        <td className="px-6 py-4">{index + 1}.</td>
+        <td className="px-6 py-4">{index + 1}</td>
         <th
           scope="row"
           className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
         >
           {name}
         </th>
-        <td className="px-6 py-4">{category}</td>
-        <td className="px-6 py-4">${price}</td>
+        <td className="px-6 py-4">{email}</td>
+        <td className="px-6 py-4">{phone}</td>
+        <td className="px-6 py-4">{address}</td>
         <td className="px-6 py-4">
           <label className="inline-flex items-center cursor-pointer">
             <input
@@ -55,7 +57,7 @@ const MenuItemTableData = ({
         <td className="px-6 py-4 text-center">
           <div className="flex items-center justify-center">
             <Link
-              to={`${EDIT_MENU_ITEM_ROUTE}/${id}`}
+              to={`${EDIT_STAFF_ROUTE}/${id}`}
               className="font-medium text-blue-600 hover:underline"
             >
               Edit
@@ -69,4 +71,4 @@ const MenuItemTableData = ({
   );
 };
 
-export default MenuItemTableData;
+export default StaffsTableData;

@@ -9,6 +9,10 @@ const UserSchema = new mongoose.Schema({
   phone: { type: String },
   password: { type: String, required: true },
   profileImageUrl: String,
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   roles: {
     type: [String],
     enum: [ROLE_ADMIN, ROLE_EMPLOYEE, ROLE_USER],

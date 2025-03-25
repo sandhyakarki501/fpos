@@ -1,7 +1,7 @@
 import {
   MENU_ITEM_LIST_ROUTE,
   ORDERS_LIST_ROUTE,
-  USERS_LIST_ROUTE,
+  STAFF_LIST_ROUTE,
 } from "./routes";
 
 const adminMenu = [
@@ -14,8 +14,8 @@ const adminMenu = [
     route: ORDERS_LIST_ROUTE,
   },
   {
-    label: "Manage Users",
-    route: USERS_LIST_ROUTE,
+    label: "Manage Staff",
+    route: STAFF_LIST_ROUTE,
   },
 ];
 
