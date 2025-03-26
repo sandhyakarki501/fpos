@@ -46,3 +46,10 @@ export const formatUserData = (data) => ({
   profileImageUrl: data.profileImageUrl ?? null,
   roles: data.roles,
 });
+
+export const formatScheduleData = (data) => ({
+  id: data._id,
+  user: formatUserData(data.user),
+  startDateTime: data.startDateTime,
+  endDateTime: data.endDateTime,
+});
