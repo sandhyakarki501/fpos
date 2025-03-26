@@ -15,18 +15,21 @@ const slides = [
     price: 999,
     misc: "with extra cheese",
     image: hero1,
+    query: "pizza",
   },
   {
     title: "Hamburger",
     price: 599,
     misc: "with fries",
     image: hero2,
+    query: "burger",
   },
   {
     title: "Steamed Momos",
     price: 459,
     misc: "with our famous pickle",
     image: hero3,
+    query: "momo",
   },
 ];
 
@@ -60,7 +63,7 @@ function Hero() {
                   {slide.price}
                 </h4>
                 <Link
-                  to={MENU_ITEMS_ROUTE}
+                  to={`${MENU_ITEMS_ROUTE}?item-name=${slide.query}`}
                   className="py-1 px-4 md:py-2 md:px-6 text-xs md:text-lg bg-zinc-900 text-white font-semibold hover:bg-zinc-800"
                 >
                   Order Now
