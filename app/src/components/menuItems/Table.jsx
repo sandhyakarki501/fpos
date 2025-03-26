@@ -1,15 +1,53 @@
 import { deleteMenuItem, getAllMenuItems } from "../../api/menuItem";
-import { RiSettings5Line } from "react-icons/ri";
+import {
+  RiArrowDownLine,
+  RiArrowUpLine,
+  RiSettings5Line,
+} from "react-icons/ri";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import MenuItemTableData from "./TableData";
 import Modal from "../Modal";
+
+const columns = [
+  {
+    label: "ID",
+    slug: "id",
+  },
+  {
+    label: "Menu item name",
+    slug: "name",
+  },
+  {
+    label: "Category",
+    slug: "category",
+  },
+  {
+    label: "Price",
+    slug: "price",
+  },
+  {
+    label: "Created At",
+    slug: "createdAt",
+  },
+  {
+    label: "Status",
+    slug: "status",
+  },
+];
 
 const MenuItemsTable = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [refreshTable, setRefreshTable] = useState(true);
+  const [filters, setFilters] = useState({
+    sort: { createdAt: -1 },
+  });
+
+  function updateSort(field) {
+    setFilters({ sort: { [field]: filters.sort[field] == 1 ? -1 : 1 } });
+  }
 
   async function confirmDelete() {
     setRefreshTable(false);
@@ -36,29 +74,33 @@ const MenuItemsTable = () => {
   useEffect(() => {
     if (!refreshTable) return;
 
-    getAllMenuItems().then((response) => setMenuItems(response.data));
-  }, [refreshTable]);
+    getAllMenuItems(filters).then((response) => setMenuItems(response.data));
+  }, [refreshTable, filters]);
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mb-10">
       <table className="w-full text-sm text-left">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200">
           <tr>
-            <th scope="col" className="px-6 py-3">
-              id
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Menu item name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Category
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Price
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Status
-            </th>
+            {columns.map((column) => (
+              <th
+                key={column.slug}
+                scope="col"
+                className="px-6 py-3 hover:cursor-pointer hover:text-gray-800"
+                onClick={() => updateSort(column.slug)}
+              >
+                <p className="flex items-center">
+                  {column.label}
+                  {filters.sort[column.slug] &&
+                    (filters.sort[column.slug] == 1 ? (
+                      <RiArrowUpLine />
+                    ) : (
+                      <RiArrowDownLine />
+                    ))}
+                </p>
+              </th>
+            ))}
+
             <th scope="col" className="px-6 py-3">
               <div className="flex justify-center">
                 <RiSettings5Line className="h-5 w-5" />

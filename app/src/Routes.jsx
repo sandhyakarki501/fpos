@@ -47,6 +47,7 @@ import StaffsListPage from "./pages/users/staffs/List";
 import UnAuthLayout from "./layouts/UnAuthLayout";
 import UsersPage from "./pages/users";
 import NotFound from "./pages/NotFound";
+import EmployeeLayout from "./layouts/EmployeeLayout";
 
 const Routes = () => {
   const router = createBrowserRouter(
@@ -64,13 +65,16 @@ const Routes = () => {
           />
           <Route path={PROFILE_ROUTE} element={<ProfilePage />} />
 
-          <Route element={<AdminLayout />}>
+          <Route element={<EmployeeLayout />}>
             <Route path={MENU_ITEM_LIST_ROUTE} element={<MenuItemsList />} />
             <Route path={ADD_MENU_ITEM_ROUTE} element={<AddMenuItem />} />
             <Route
               path={`${EDIT_MENU_ITEM_ROUTE}/:id`}
               element={<EditMenuItem />}
             />
+          </Route>
+
+          <Route element={<AdminLayout />}>
             <Route path={ORDERS_LIST_ROUTE} element={<OrdersList />} />
             <Route path={STAFF_LIST_ROUTE} element={<StaffsListPage />} />
             <Route path={USERS_LIST_ROUTE} element={<UsersPage />} />

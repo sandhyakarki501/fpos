@@ -1,3 +1,4 @@
+import { formatSearchParams } from "../helpers/formatParams";
 import api from "./api";
 
 const addMenuItem = async (data) => {
@@ -18,7 +19,9 @@ const editMenuItem = async (id, data) => {
   return response;
 };
 
-const getAllMenuItems = async (query) => {
+const getAllMenuItems = async (searchParams) => {
+  const query = formatSearchParams(searchParams);
+
   const response = await api.get(`/api/menu-items?${query}`);
 
   return response;
