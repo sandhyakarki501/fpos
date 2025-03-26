@@ -46,6 +46,7 @@ import SchedulesPage from "./pages/schedules";
 import StaffsListPage from "./pages/users/staffs/List";
 import UnAuthLayout from "./layouts/UnAuthLayout";
 import UsersPage from "./pages/users";
+import NotFound from "./pages/NotFound";
 
 const Routes = () => {
   const router = createBrowserRouter(
@@ -89,6 +90,8 @@ const Routes = () => {
           <Route path={LOGIN_ROUTE} element={<Login />} />
           <Route path={REGISTER_ROUTE} element={<Register />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Route>
     )
   );
