@@ -179,6 +179,25 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+const createTableOrder = async (req, res) => {
+  try {
+    const input = req.body;
+    const userId = req?.user.id;
+
+    if (!input.tableNumber) {
+      return res.status(422).send("Table number is required.");
+    }
+
+    if (!input.items) return res.status(422).send("Order items is required.");
+
+    const data = await orderService.createOrder(input, userId);
+
+    res.json(data);
+  } catch (error) {
+    res.status(error.statusCode || 500).send(error.message);
+  }
+};
+
 export {
   checkoutOrder,
   confirmOrder,
@@ -189,4 +208,5 @@ export {
   getOrdersByUser,
   updateOrder,
   updateOrderStatus,
+  createTableOrder,
 };

@@ -11,7 +11,8 @@ import paymentService from "./paymentService.js";
 
 const getAll = async (query) => {
   const reqQuery = query?.status ? { status: query.status } : {};
-  const sort = JSON.parse(query.sort || "{ createdAt: -1 }");
+
+  const sort = query && query.sort ? JSON.parse(query.sort) : { createdAt: -1 };
 
   const orders = await Order.find(reqQuery)
     .sort(sort)
@@ -52,7 +53,7 @@ const createOrder = async (input, userId) => {
 };
 
 const updateOrder = async (id, input) => {
-  const order = await Order.findByIdAndUpdate(id, input);
+  const order = await Order.findByIdAndUpdate(id, input, { new: true });
 
   return order;
 };
