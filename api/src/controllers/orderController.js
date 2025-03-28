@@ -167,10 +167,6 @@ const deleteOrder = async (req, res) => {
   try {
     const order = await orderService.getOrderById(id);
 
-    if (order.userId != user.id && !user.roles.includes(ROLE_ADMIN)) {
-      return res.status(403).send("Access denied");
-    }
-
     await orderService.deleteOrder(id);
 
     res.send("Order deleted successfully.");

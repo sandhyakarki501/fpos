@@ -13,36 +13,7 @@ import {
   RiArrowUpLine,
 } from "react-icons/ri";
 
-const columns = [
-  {
-    label: "S.N",
-    slug: "id",
-  },
-  {
-    label: "Customer",
-    slug: "customer",
-  },
-  {
-    label: "Menu items",
-    slug: "items",
-  },
-  {
-    label: "Total price",
-    slug: "totalPrice",
-    sortable: true,
-  },
-  {
-    label: "Created At",
-    slug: "createdAt",
-    sortable: true,
-  },
-  {
-    label: "Status",
-    slug: "status",
-  },
-];
-
-function OrdersTable() {
+function OrdersTable({ columns, isTableOrder = false }) {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const [isStatusUpdated, setIsStatusUpdated] = useState(true);
@@ -56,7 +27,7 @@ function OrdersTable() {
         toast.success("Order deleted successfully", { autoClose: 500 });
         setIsStatusUpdated(true);
       })
-      .catch((error) => console.log(error))
+      .catch((error) => toast.error(error.response.data, { autoClose: 500 }))
       .finally(() => {
         setSelectedOrder(null);
         setIsOpen(false);
@@ -68,14 +39,22 @@ function OrdersTable() {
   }
 
   useEffect(() => {
-    getOrders({ sort })
+    const query = { sort };
+
+    if (isTableOrder) {
+      query.isTableOrder = true;
+    } else {
+      query.customer = true;
+    }
+
+    getOrders(query)
       .then((data) => setOrders(data))
       .catch((error) => toast.error(error.response?.data, { autoClose: 1500 }))
       .finally(() => {
         setLoading(false);
         setIsStatusUpdated(false);
       });
-  }, [isStatusUpdated, selectedOrder, sort]);
+  }, [isStatusUpdated, selectedOrder, sort, isTableOrder]);
 
   if (loading)
     return (
@@ -123,7 +102,11 @@ function OrdersTable() {
               className="bg-white border-b border-gray-200 hover:bg-gray-50 "
             >
               <td className="px-6 py-4 text-gray-900">{index + 1}.</td>
-              <td className="px-6 py-4">{order.customer?.name}</td>
+              {isTableOrder ? (
+                <td className="px-6 py-4">{order.tableNumber}</td>
+              ) : (
+                <td className="px-6 py-4">{order.customer?.name}</td>
+              )}
               <td className="px-6 py-4">
                 {order.items.map((item, index) => {
                   if (!item?.menuItem) return;
@@ -146,7 +129,11 @@ function OrdersTable() {
                 {format(order.createdAt, "dd MMM, yyyy")}
               </td>
               <td className="px-6 py-4">
-                <OrderStatus orderStatus={order.status} orderId={order.id} />
+                <OrderStatus
+                  orderStatus={order.status}
+                  orderId={order.id}
+                  isTableOrder={isTableOrder}
+                />
               </td>
               <td className="px-6 py-4 text-center">
                 <button

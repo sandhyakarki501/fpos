@@ -10,7 +10,11 @@ import requestKhalti from "../utils/khalti.js";
 import paymentService from "./paymentService.js";
 
 const getAll = async (query) => {
-  const reqQuery = query?.status ? { status: query.status } : {};
+  const reqQuery = {};
+
+  if (query.isTableOrder) reqQuery.tableNumber = { $ne: null};
+  if (query.customer) reqQuery.customer = { $ne: null };
+  if (query.status) reqQuery.status = query.status;
 
   const sort = query && query.sort ? JSON.parse(query.sort) : { createdAt: -1 };
 

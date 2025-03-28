@@ -39,6 +39,6 @@ router.put(
   updateOrderStatus
 );
 
-router.delete("/:id", [auth, roleBasedAuth(ROLE_ADMIN)], deleteOrder);
+router.delete("/:id", [auth, roleBasedAuth(ROLE_EMPLOYEE)], deleteOrder);
 
 export default router;

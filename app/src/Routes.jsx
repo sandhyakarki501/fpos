@@ -22,6 +22,7 @@ import {
   REGISTER_ROUTE,
   SCHEDULES_ROUTE,
   STAFF_LIST_ROUTE,
+  TABLE_ORDERS_ROUTE,
   USERS_LIST_ROUTE,
 } from "./constants/routes";
 import AddMenuItem from "./pages/menuItems/Add";
@@ -48,6 +49,7 @@ import UnAuthLayout from "./layouts/UnAuthLayout";
 import UsersPage from "./pages/users";
 import NotFound from "./pages/NotFound";
 import EmployeeLayout from "./layouts/EmployeeLayout";
+import TableOrders from "./pages/orders/TableOrders";
 
 const Routes = () => {
   const router = createBrowserRouter(
@@ -68,6 +70,7 @@ const Routes = () => {
           <Route element={<EmployeeLayout />}>
             <Route path={MENU_ITEM_LIST_ROUTE} element={<MenuItemsList />} />
             <Route path={ADD_MENU_ITEM_ROUTE} element={<AddMenuItem />} />
+            <Route path={TABLE_ORDERS_ROUTE} element={<TableOrders />} />
             <Route
               path={`${EDIT_MENU_ITEM_ROUTE}/:id`}
               element={<EditMenuItem />}

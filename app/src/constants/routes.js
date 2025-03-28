@@ -18,4 +18,5 @@ export const EDIT_STAFF_ROUTE = `${STAFF_ROUTE}/edit`;
 export const MENU_ITEM_LIST_ROUTE = `${MENU_ITEMS_ROUTE}/list`;
 export const ORDERS_LIST_ROUTE = `${ORDERS_ROUTE}/list`;
 export const STAFF_LIST_ROUTE = `${STAFF_ROUTE}/list`;
+export const TABLE_ORDERS_ROUTE = `${ORDERS_ROUTE}/table-orders`;
 export const USERS_LIST_ROUTE = `${USERS_ROUTE}/list`;
