@@ -20,8 +20,8 @@ async function createOrder(data) {
   return response.data;
 }
 
-async function getOrders() {
-  const response = await api.get(`/api/orders`);
+async function getOrders({ sort }) {
+  const response = await api.get(`/api/orders?sort=${JSON.stringify(sort)}`);
 
   return response.data;
 }

@@ -6,6 +6,41 @@ import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import OrderStatus from "./Status";
 import Spinner from "../Spinner";
+import { format } from "date-fns";
+import {
+  RiArrowDownLine,
+  RiArrowUpDownLine,
+  RiArrowUpLine,
+} from "react-icons/ri";
+
+const columns = [
+  {
+    label: "S.N",
+    slug: "id",
+  },
+  {
+    label: "Customer",
+    slug: "customer",
+  },
+  {
+    label: "Menu items",
+    slug: "items",
+  },
+  {
+    label: "Total price",
+    slug: "totalPrice",
+    sortable: true,
+  },
+  {
+    label: "Created At",
+    slug: "createdAt",
+    sortable: true,
+  },
+  {
+    label: "Status",
+    slug: "status",
+  },
+];
 
 function OrdersTable() {
   const [loading, setLoading] = useState(true);
@@ -13,6 +48,7 @@ function OrdersTable() {
   const [isStatusUpdated, setIsStatusUpdated] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [sort, setSort] = useState({ createdAt: -1 });
 
   function confirmDeleteOrder() {
     deleteOrder(selectedOrder?.id)
@@ -27,17 +63,19 @@ function OrdersTable() {
       });
   }
 
-  useEffect(() => {
-    if (!isStatusUpdated) return;
+  function updateSort(field) {
+    setSort({ [field]: sort[field] == 1 ? -1 : 1 });
+  }
 
-    getOrders()
+  useEffect(() => {
+    getOrders({ sort })
       .then((data) => setOrders(data))
       .catch((error) => toast.error(error.response?.data, { autoClose: 1500 }))
       .finally(() => {
         setLoading(false);
         setIsStatusUpdated(false);
       });
-  }, [isStatusUpdated, selectedOrder]);
+  }, [isStatusUpdated, selectedOrder, sort]);
 
   if (loading)
     return (
@@ -51,30 +89,41 @@ function OrdersTable() {
       <table className="w-full text-sm text-left rtl:text-right text-gray-800">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200">
           <tr>
-            <th scope="col" className="px-6 py-3">
-              Order Number
-            </th>
-            <th scope="col" className="px-8 py-3">
-              Menu Items
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Total price
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Status
-            </th>
+            {columns.map((column) => (
+              <th
+                key={column.slug}
+                scope="col"
+                className="px-6 py-3 hover:cursor-pointer hover:text-gray-800"
+                title="sort"
+                onClick={() => column.sortable && updateSort(column.slug)}
+              >
+                <p className="flex items-center">
+                  <span className="mr-1">{column.label}</span>
+                  {sort[column.slug] ? (
+                    sort[column.slug] == 1 ? (
+                      <RiArrowUpLine />
+                    ) : (
+                      <RiArrowDownLine />
+                    )
+                  ) : column.sortable ? (
+                    <RiArrowUpDownLine />
+                  ) : null}
+                </p>
+              </th>
+            ))}
             <th scope="col" className="px-6 py-3">
               <HiOutlineCog6Tooth className="w-full h-4 text-center" />
             </th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {orders.map((order, index) => (
             <tr
-              key={order.id}
+              key={index}
               className="bg-white border-b border-gray-200 hover:bg-gray-50 "
             >
-              <td className="px-6 py-4 text-gray-900">{order.orderNumber}</td>
+              <td className="px-6 py-4 text-gray-900">{index + 1}.</td>
+              <td className="px-6 py-4">{order.customer?.name}</td>
               <td className="px-6 py-4">
                 {order.items.map((item, index) => {
                   if (!item?.menuItem) return;
@@ -93,6 +142,9 @@ function OrdersTable() {
                 })}
               </td>
               <td className="px-6 py-4">{order.totalPrice}</td>
+              <td className="px-6 py-4">
+                {format(order.createdAt, "dd MMM, yyyy")}
+              </td>
               <td className="px-6 py-4">
                 <OrderStatus orderStatus={order.status} orderId={order.id} />
               </td>

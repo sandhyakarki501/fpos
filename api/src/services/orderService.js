@@ -11,9 +11,11 @@ import paymentService from "./paymentService.js";
 
 const getAll = async (query) => {
   const reqQuery = query?.status ? { status: query.status } : {};
+  const sort = JSON.parse(query.sort || "{ createdAt: -1 }");
 
   const orders = await Order.find(reqQuery)
-    .sort({ createdAt: -1 })
+    .sort(sort)
+    .populate("customer")
     .populate("items.menuItem")
     .exec();
 

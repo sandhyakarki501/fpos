@@ -1,6 +1,7 @@
 import { deleteMenuItem, getAllMenuItems } from "../../api/menuItem";
 import {
   RiArrowDownLine,
+  RiArrowUpDownLine,
   RiArrowUpLine,
   RiSettings5Line,
 } from "react-icons/ri";
@@ -17,18 +18,22 @@ const columns = [
   {
     label: "Menu item name",
     slug: "name",
+    sortable: true,
   },
   {
     label: "Category",
     slug: "category",
+    sortable: true,
   },
   {
     label: "Price",
     slug: "price",
+    sortable: true,
   },
   {
     label: "Created At",
     slug: "createdAt",
+    sortable: true,
   },
   {
     label: "Status",
@@ -41,12 +46,10 @@ const MenuItemsTable = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [refreshTable, setRefreshTable] = useState(true);
-  const [filters, setFilters] = useState({
-    sort: { createdAt: -1 },
-  });
+  const [sort, setSort] = useState({ createdAt: -1 });
 
   function updateSort(field) {
-    setFilters({ sort: { [field]: filters.sort[field] == 1 ? -1 : 1 } });
+    setSort({ [field]: sort[field] == 1 ? -1 : 1 });
   }
 
   async function confirmDelete() {
@@ -74,8 +77,8 @@ const MenuItemsTable = () => {
   useEffect(() => {
     if (!refreshTable) return;
 
-    getAllMenuItems(filters).then((response) => setMenuItems(response.data));
-  }, [refreshTable, filters]);
+    getAllMenuItems({ sort }).then((response) => setMenuItems(response.data));
+  }, [refreshTable, sort]);
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mb-10">
@@ -87,16 +90,19 @@ const MenuItemsTable = () => {
                 key={column.slug}
                 scope="col"
                 className="px-6 py-3 hover:cursor-pointer hover:text-gray-800"
-                onClick={() => updateSort(column.slug)}
+                onClick={() => column.sortable && updateSort(column.slug)}
               >
                 <p className="flex items-center">
-                  {column.label}
-                  {filters.sort[column.slug] &&
-                    (filters.sort[column.slug] == 1 ? (
+                  <span className="mr-1">{column.label}</span>
+                  {sort[column.slug] ? (
+                    sort[column.slug] == 1 ? (
                       <RiArrowUpLine />
                     ) : (
                       <RiArrowDownLine />
-                    ))}
+                    )
+                  ) : column.sortable ? (
+                    <RiArrowUpDownLine />
+                  ) : null}
                 </p>
               </th>
             ))}
