@@ -12,6 +12,7 @@ export const USERS_ROUTE = "/users";
 export const ADD_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/add`;
 export const ADD_SCHEDULE_ROUTE = `${SCHEDULES_ROUTE}/add`;
 export const ADD_STAFF_ROUTE = `${STAFF_ROUTE}/add`;
+export const ADD_TABLE_ORDERS_ROUTE = `${ORDERS_ROUTE}/table-orders/add`;
 export const EDIT_MENU_ITEM_ROUTE = `${MENU_ITEMS_ROUTE}/edit`;
 export const EDIT_SCHEDULE_ROUTE = `${SCHEDULES_ROUTE}/edit`;
 export const EDIT_STAFF_ROUTE = `${STAFF_ROUTE}/edit`;

@@ -101,11 +101,13 @@ function OrdersTable({ columns, isTableOrder = false }) {
               key={index}
               className="bg-white border-b border-gray-200 hover:bg-gray-50 "
             >
-              <td className="px-6 py-4 text-gray-900">{index + 1}.</td>
               {isTableOrder ? (
-                <td className="px-6 py-4">{order.tableNumber}</td>
+                <td className="px-6 py-4 font-bold">{order.tableNumber}</td>
               ) : (
-                <td className="px-6 py-4">{order.customer?.name}</td>
+                <>
+                  <td className="px-6 py-4 text-gray-900">{index + 1}.</td>
+                  <td className="px-6 py-4">{order.customer?.name}</td>
+                </>
               )}
               <td className="px-6 py-4">
                 {order.items.map((item, index) => {
