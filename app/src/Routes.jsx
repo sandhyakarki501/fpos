@@ -49,7 +49,7 @@ import ProfilePage from "./pages/profile";
 import Register from "./pages/auth/Register";
 import SchedulesPage from "./pages/schedules";
 import StaffsListPage from "./pages/users/staffs/List";
-import TableOrders from "./pages/orders/TableOrders";
+import TableOrders from "./pages/orders/table";
 import UnAuthLayout from "./layouts/UnAuthLayout";
 import UsersPage from "./pages/users";
 

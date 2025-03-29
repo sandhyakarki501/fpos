@@ -1,7 +1,9 @@
 function formatSearchParams(searchParams) {
-  const { sort, isTableOrder, customer } = searchParams;
+  const { sort, isTableOrder, customer, filters } = searchParams;
 
   let query = "";
+
+  if (filters) query = `${query == "" ? "" : query + "&"}${filters}`;
 
   if (sort)
     query = `${query == "" ? "" : query + "&"}sort=${JSON.stringify(sort)}`;

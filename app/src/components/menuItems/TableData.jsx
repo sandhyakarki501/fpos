@@ -42,7 +42,7 @@ const MenuItemTableData = ({
           {name}
         </th>
         <td className="px-6 py-4">{category}</td>
-        <td className="px-6 py-4">${price}</td>
+        <td className="px-6 py-4">Rs. {price}</td>
         <td className="px-6 py-4">{format(createdAt, "dd MMM, yyyy")}</td>
         <td className="px-6 py-4">
           <label className="inline-flex items-center cursor-pointer">
