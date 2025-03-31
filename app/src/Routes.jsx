@@ -23,6 +23,7 @@ import {
   REGISTER_ROUTE,
   SCHEDULES_ROUTE,
   STAFF_LIST_ROUTE,
+  TABLE_ORDERS_GRID_ROUTE,
   TABLE_ORDERS_ROUTE,
   USERS_LIST_ROUTE,
 } from "./constants/routes";
@@ -50,6 +51,7 @@ import Register from "./pages/auth/Register";
 import SchedulesPage from "./pages/schedules";
 import StaffsListPage from "./pages/users/staffs/List";
 import TableOrders from "./pages/orders/table";
+import TableOrdersGrid from "./pages/orders/table/OrderGrid";
 import UnAuthLayout from "./layouts/UnAuthLayout";
 import UsersPage from "./pages/users";
 
@@ -73,6 +75,7 @@ const Routes = () => {
             <Route path={MENU_ITEM_LIST_ROUTE} element={<MenuItemsList />} />
             <Route path={ADD_MENU_ITEM_ROUTE} element={<AddMenuItem />} />
             <Route path={TABLE_ORDERS_ROUTE} element={<TableOrders />} />
+            <Route path={TABLE_ORDERS_GRID_ROUTE} element={<TableOrdersGrid />} />
             <Route
               path={ADD_TABLE_ORDERS_ROUTE}
               element={<CreateTableOrder />}

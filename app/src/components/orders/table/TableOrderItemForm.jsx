@@ -1,6 +1,6 @@
 import { addToOrder, setTableNumber } from "../../../redux/order/orderSlice";
 import { getAllMenuItems } from "../../../api/menuItem";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import config from "../../../config/config";
 
@@ -9,6 +9,8 @@ function TableOrderItemForm() {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const dispatch = useDispatch();
+
+  const { tableNumber } = useSelector((state) => state.order);
 
   function addItem() {
     if (!selectedItem) return;
@@ -29,6 +31,7 @@ function TableOrderItemForm() {
         <select
           id="tableNumber"
           className="border ml-2 rounded pl-1"
+          value={tableNumber}
           onChange={(e) => dispatch(setTableNumber(e.target.value))}
         >
           {Array.from(
