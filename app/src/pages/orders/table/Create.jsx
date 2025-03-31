@@ -1,6 +1,8 @@
 import { BiLeftArrowAlt } from "react-icons/bi";
-import { TABLE_ORDERS_ROUTE } from "../../constants/routes";
 import { Link } from "react-router-dom";
+import { TABLE_ORDERS_ROUTE } from "../../../constants/routes";
+import TableOrderItemForm from "../../../components/orders/table/TableOrderItemForm";
+import TableOrderItemList from "../../../components/orders/table/TableOrderItemList";
 
 const CreateTableOrder = () => {
   return (
@@ -11,10 +13,14 @@ const CreateTableOrder = () => {
           Back
         </Link>
 
-        <div className="md:w-2/3 xl:w-1/2 mx-auto px-4">
+        <div className="lg:w-2/3 mx-auto px-4 ">
           <h2 className="text-center text-2xl md:text-3xl font-semibold text-textColor">
             Create Table Order
           </h2>
+
+          <TableOrderItemForm />
+
+          <TableOrderItemList />
         </div>
       </div>
     </section>

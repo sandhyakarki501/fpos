@@ -32,7 +32,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import CartItems from "./pages/cart";
 import CreateSchedule from "./pages/schedules/Add";
-import CreateTableOrder from "./pages/orders/CreateTableOrder";
+import CreateTableOrder from "./pages/orders/table/Create";
 import EditMenuItem from "./pages/menuItems/Edit";
 import EditSchedule from "./pages/schedules/Edit";
 import EditStaff from "./pages/users/staffs/Edit";

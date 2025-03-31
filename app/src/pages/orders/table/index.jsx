@@ -1,7 +1,7 @@
-import { ADD_TABLE_ORDERS_ROUTE } from "../../constants/routes";
+import { ADD_TABLE_ORDERS_ROUTE } from "../../../constants/routes";
 import { Link } from "react-router-dom";
 import { RiAddLargeLine } from "react-icons/ri";
-import OrdersTable from "../../components/orders/Table";
+import OrdersTable from "../../../components/orders/Table";
 
 const columns = [
   {
