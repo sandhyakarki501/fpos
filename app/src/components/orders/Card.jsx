@@ -1,5 +1,6 @@
 import { ORDER_STATUS_PENDING } from "../../constants/orderStatus";
 import ConfirmOrder from "./Confirm";
+import DeleteOrder from "./Delete";
 import pizza from "../../assets/images/pizza.png";
 
 function OrdersCard({ order, status }) {
@@ -45,8 +46,9 @@ function OrdersCard({ order, status }) {
           Total price:
           <span className="font-semibold ml-2">Rs. {order.totalPrice}</span>
         </p>
-        <div className={status == ORDER_STATUS_PENDING ? "block" : "hidden"}>
+        <div className={status == ORDER_STATUS_PENDING ? "flex" : "hidden"}>
           <ConfirmOrder order={order} />
+          <DeleteOrder order={order} />
         </div>
       </div>
     </div>
