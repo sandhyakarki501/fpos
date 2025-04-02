@@ -37,7 +37,7 @@ const adminMenu = [
   {
     label: "Staff Schedules",
     route: SCHEDULES_ROUTE,
-    role: ROLE_ADMIN,
+    role: ROLE_EMPLOYEE,
   },
 ];
 

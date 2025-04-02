@@ -75,7 +75,10 @@ const Routes = () => {
             <Route path={MENU_ITEM_LIST_ROUTE} element={<MenuItemsList />} />
             <Route path={ADD_MENU_ITEM_ROUTE} element={<AddMenuItem />} />
             <Route path={TABLE_ORDERS_ROUTE} element={<TableOrders />} />
-            <Route path={TABLE_ORDERS_GRID_ROUTE} element={<TableOrdersGrid />} />
+            <Route
+              path={TABLE_ORDERS_GRID_ROUTE}
+              element={<TableOrdersGrid />}
+            />
             <Route
               path={ADD_TABLE_ORDERS_ROUTE}
               element={<CreateTableOrder />}
@@ -84,6 +87,7 @@ const Routes = () => {
               path={`${EDIT_MENU_ITEM_ROUTE}/:id`}
               element={<EditMenuItem />}
             />
+            <Route path={SCHEDULES_ROUTE} element={<SchedulesPage />} />
           </Route>
 
           <Route element={<AdminLayout />}>
@@ -93,7 +97,6 @@ const Routes = () => {
             <Route path={ADD_STAFF_ROUTE} element={<AddStaff />} />
             <Route path={`${EDIT_STAFF_ROUTE}/:id`} element={<EditStaff />} />
 
-            <Route path={SCHEDULES_ROUTE} element={<SchedulesPage />} />
             <Route path={ADD_SCHEDULE_ROUTE} element={<CreateSchedule />} />
             <Route
               path={`${EDIT_SCHEDULE_ROUTE}/:id`}
